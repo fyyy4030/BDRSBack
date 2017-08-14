@@ -1,0 +1,1057 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Administrator\Desktop\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\UART_TxRx_Function\KEIL\UART_TxRx_Function.uvproj
+Project File Date:  07/27/2017
+
+<h2>Output:</h2>
+Build target 'UART_TxRx_Function'
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(259): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(278): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(1347): error:  #20: identifier "BaoJingCounterWaiBuDianYuan" is undefined
+..\user\main.c:                                                         BaoJingCounterWaiBuDianYuan++;  
+..\user\main.c:                                                         ^
+..\user\main.c(1357): error:  #20: identifier "BaoJingCounterWaiBuDianYuan" is undefined
+..\user\main.c:                                                         BaoJingCounterWaiBuDianYuan++;  
+..\user\main.c:                                                         ^
+..\user\main.c(1359): error:  #29: expected an expression
+..\user\main.c:                                                 if(BaoJingValueObj.SIMCardChangeAlarm == 1))
+..\user\main.c:                                                                                            ^
+..\user\main.c(1363): warning:  #12-D: parsing restarts here after previous syntax error
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                 ^
+..\user\main.c(1363): error:  #65: expected a ";"
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                 ^
+..\user\main.c(1363): error:  #29: expected an expression
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                       ^
+..\user\main.c(1364): error:  #65: expected a ";"
+..\user\main.c:                                                 {
+..\user\main.c:                                                 ^
+..\user\main.c(1385): warning:  #12-D: parsing restarts here after previous syntax error
+..\user\main.c:                                   } 
+..\user\main.c:                                   ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\main.c: ..\user\main.c: 12 warnings, 6 errors
+Target not created
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(259): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(278): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(1359): error:  #29: expected an expression
+..\user\main.c:                                                 if(BaoJingValueObj.SIMCardChangeAlarm == 1))
+..\user\main.c:                                                                                            ^
+..\user\main.c(1364): warning:  #12-D: parsing restarts here after previous syntax error
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                 ^
+..\user\main.c(1364): error:  #65: expected a ";"
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                 ^
+..\user\main.c(1364): error:  #29: expected an expression
+..\user\main.c:                                                 else ()
+..\user\main.c:                                                       ^
+..\user\main.c(1365): error:  #65: expected a ";"
+..\user\main.c:                                                 {
+..\user\main.c:                                                 ^
+..\user\main.c(1386): warning:  #12-D: parsing restarts here after previous syntax error
+..\user\main.c:                                   } 
+..\user\main.c:                                   ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\main.c: ..\user\main.c: 12 warnings, 4 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+Target not created
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15972 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15972 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(904): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(906): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(906): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(906): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(906): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15968 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(906): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=15976 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(914): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=16028 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
+Build target 'UART_TxRx_Function'
+assembling startup_NUC131.s...
+compiling system_NUC131.c...
+compiling main.c...
+..\user\alart.h(472): warning:  #1-D: last line of file ends without a newline
+..\user\alart.h:   #endif
+..\user\alart.h:         ^
+..\user\dataflash.h(416): warning:  #177-D: variable "dat" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat = 0,dat1 = 0;
+..\user\dataflash.h:             ^
+..\user\dataflash.h(449): warning:  #177-D: variable "dat2" was declared but never referenced
+..\user\dataflash.h:    uint32_t dat1 = 0,dat2 = 0;
+..\user\dataflash.h:                      ^
+..\user\canMessage.h(124): warning:  #177-D: variable "i" was declared but never referenced
+..\user\canMessage.h:   { unsigned char i;
+..\user\canMessage.h:                   ^
+..\user\canMessage.h(988): warning:  #1-D: last line of file ends without a newline
+..\user\canMessage.h:   #endif
+..\user\canMessage.h:         ^
+..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
+..\user\lcm.h:     unsigned int dat1,dat2;
+..\user\lcm.h:                       ^
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:         uint8_t i;    
+..\user\M660.h:                 ^
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h:   { unsigned char i;
+..\user\M660.h:                   ^
+..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
+..\user\costab.h:   #endif
+..\user\costab.h:         ^
+..\user\main.c(914): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c:        unsigned char k=0;
+..\user\main.c:                      ^
+..\user\dataflash.h(479): warning: C3017W: state may be used before being set
+..\user\dataflash.h:    uint32_t state;
+..\user\dataflash.h:           ^
+..\user\dataflash.h: ..\user\main.c: 11 warnings, 0 errors
+compiling uart.c...
+compiling sys.c...
+compiling clk.c...
+compiling gpio.c...
+compiling timer.c...
+compiling can.c...
+compiling adc.c...
+compiling fmc.c...
+compiling wdt.c...
+linking...
+Program Size: Code=16028 RO-data=972 RW-data=564 ZI-data=3708  
+FromELF: creating hex file...
+User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
+User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
+".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Programming Done.
+Verify OK.
+Application running...
