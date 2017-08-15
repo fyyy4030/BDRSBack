@@ -602,7 +602,7 @@ void GPIO_INIT()
 		*/
 		//GPIO_SetMode(PE, BIT5, GPIO_PMD_INPUT);//CT_BATT
     GPIO_SetMode(PE, BIT5, GPIO_PMD_OPEN_DRAIN ); //CT_BATT
-		PE5 = 1;//外部供电控制
+		PE5 = 0;//外部供电控制
 		GPIO_SetMode(PF, BIT4, GPIO_PMD_INPUT);//VTBJC3作为电池存在检测端口
 		GPIO_SetMode(PF, BIT5, GPIO_PMD_INPUT);//VTBJC2
 		//GPIO_EnableInt(PF, 5, GPIO_INT_FALLING);//振动2下降沿中断检测

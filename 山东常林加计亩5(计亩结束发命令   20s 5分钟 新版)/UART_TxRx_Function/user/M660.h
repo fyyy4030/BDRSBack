@@ -178,7 +178,7 @@ unsigned char BackBatteryPowerOffFun()
 	// 备用电池欠压报警
 	if((volt_bat<37))//3.7v 且备用电池存在情况下检测
 	{
-		return 0;//1;//测试用，实际情况是返回1
+		return 1;//1;//测试用，实际情况是返回1
 	}		
 	else
 	{
