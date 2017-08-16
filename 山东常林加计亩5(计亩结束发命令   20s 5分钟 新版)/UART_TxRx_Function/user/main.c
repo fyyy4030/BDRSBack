@@ -1022,7 +1022,7 @@ int main(void)
 	  //按协议格式初始化各个数据 熄火命令灯  只有用字符串格式串口才可发送数据 因要检测字符串结束符'/0'
     memset((char *)(&NewCarData) , 0 , sizeof(NewCarData));
     memcpy((char *)(&(CarDataP->Head)), "Z;",2+1);
-    memcpy((char *)(&(CarDataP->SimID)), "ID66160822616;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
+    memcpy((char *)(&(CarDataP->SimID)), "ID00170816001;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
  	 #ifdef CCIDASSIM
 	  memcpy((char *)(&(CarDataP->SimID))+2, &CCID[8],11); 
 	  #endif

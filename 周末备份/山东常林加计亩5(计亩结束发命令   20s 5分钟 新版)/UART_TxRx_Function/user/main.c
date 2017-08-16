@@ -26,6 +26,8 @@
 
 #define PLL_CLOCK   48000000
 
+int 	lsnum = 0;//for (lsnum = 0; lsnum <3; lsnum++)
+unsigned int cdnum = 0;
  
 void SYS_Init(void)
 {
@@ -545,6 +547,8 @@ void GPIO_INIT()
     GPIO_SetMode(PA, BIT7, GPIO_PMD_INPUT);//VREF
     //GPIO_SetMode(PA, BIT8, GPIO_PMD_INPUT);//IN33
 		GPIO_SetMode(PA, BIT8, GPIO_PMD_QUASI);PA8=0;//IN33  检测低电平
+		//	GPIO_SetMode(PA, BIT8, GPIO_PMD_OUTPUT);PA8=0;//IN33  检测低电平
+
     GPIO_SetMode(PA, BIT9, GPIO_PMD_INPUT);//IN11  
     GPIO_SetMode(PA, BIT10, GPIO_PMD_OUTPUT); //PW_GPS
 	  PA10 = 0;//供电
@@ -875,7 +879,7 @@ void BatteryChargeMangment()
 {
 
   
-	if(volt_bat<39)
+	if(volt_bat<37)
 	{
 		if(!PA14)//充电已完成
 		{
@@ -886,7 +890,7 @@ void BatteryChargeMangment()
 			PB2=1;	
 		}
 	}
-	else if(voltage > 240)
+	else if(voltage > 220)
 	{
 		 if(!PA14)//充电已完成
 		{
@@ -896,6 +900,10 @@ void BatteryChargeMangment()
 		{
 			PB2=1;	
 		}
+	}
+	else if((volt_bat>37)&&(voltage < 50))//在单独接锂电池的时候也能正常工作，此时can已经停止工作。
+	{
+			tongxintime=0;
 	}	
 }
 
@@ -927,7 +935,7 @@ int main(void)
    SYS_UnlockReg();
   GPIO_INIT();
   ADC_INIT();
-  
+  SYS_LockReg();
   #if 1
   	
     /* Init UART0 for printf and testing */
@@ -1014,7 +1022,7 @@ int main(void)
 	  //按协议格式初始化各个数据 熄火命令灯  只有用字符串格式串口才可发送数据 因要检测字符串结束符'/0'
     memset((char *)(&NewCarData) , 0 , sizeof(NewCarData));
     memcpy((char *)(&(CarDataP->Head)), "Z;",2+1);
-    memcpy((char *)(&(CarDataP->SimID)), "ID66160822616;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
+    memcpy((char *)(&(CarDataP->SimID)), "ID00170816001;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
  	 #ifdef CCIDASSIM
 	  memcpy((char *)(&(CarDataP->SimID))+2, &CCID[8],11); 
 	  #endif
@@ -1149,6 +1157,10 @@ int main(void)
 	  CAN_data();
 	 //rev_js();
 	  //yclockmachine();
+
+	  //wsj 2017.8.15
+	  	//Adc_Data();
+
 	 
   if(opok)
   {
@@ -1197,21 +1209,22 @@ int main(void)
 		        }
 			   }
 			 else if((IsUnBoundComm)&&((sendstate==2)||(sendstate==0)))		
-			   { 	if(!sendstate)
+			 { 	
+			   		if(!sendstate)
 					 {
-           sendcm|=BIT(unboundwait);
-					 ConverStateBitToASC(sendcm,NewControlStateRp.StatePara); 
+           				sendcm|=BIT(unboundwait);
+					 	ConverStateBitToASC(sendcm,NewControlStateRp.StatePara); 
 					 }
 					  sendstate=2;
 				   GprsConnectTcpState = GprsSendControlState(NewControlStateRp); 					 
 			     //if( (GprsConnectTcpState == 4 ) ||  (GprsConnectTcpState == 0 ))	 
-					if(GprsConnectTcpState == 4 )//成功发送 
+				if(GprsConnectTcpState == 4 )//成功发送 
 		       {	
-            receivecm|=BIT(unboundcommand);						 
+            	receivecm|=BIT(unboundcommand);						 
 		        IsUnBoundComm  = 0;
 					  sendstate=0; 
 		       }			   
-			   }
+			 }
 
 				  else if((IsHaltComm)&&((sendstate==3)||(sendstate==0)))		
 			   { 	if(!sendstate)
@@ -1350,49 +1363,83 @@ int main(void)
 					  
 					    //wushengjun add 2017.8.3
 					    //
-						#if 1
+						
 						BaoJingValueObj.WaiBuDianYuanPowerOff = WaiBuDianYuanPowerOffFun();
 						BaoJingValueObj.GPSCaiChuBaoJing = GPSCaiChuBaoJingFun();
 						BaoJingValueObj.BackBatteryPowerOff = BackBatteryPowerOffFun();
 						BaoJingValueObj.SIMCardChangeAlarm = SIMCardChangeAlarmFun();
 
+						 
 						if(BaoJingValueObj.WaiBuDianYuanPowerOff == 1)
 						{
 							FlagBaoJing = 1;
-							BJWaiBuDianYuan++;	
+							//BJWaiBuDianYuan++;	
 						}
 						if(BaoJingValueObj.GPSCaiChuBaoJing == 1)//暂时做不了
 						{
 							FlagBaoJing = 1;
-							BJGPSCaichu++;	
+							//BJGPSCaichu++;	
 						}
 						if(BaoJingValueObj.BackBatteryPowerOff ==1)
 						{
 						   	FlagBaoJing = 1;
-							BJBeiyongDianchiQianYa++;	
+							//BJBeiyongDianchiQianYa++;	
 						}
 						if(BaoJingValueObj.SIMCardChangeAlarm == 1)
 						{
 							FlagBaoJing = 1;
-							BJSIMCaDifferent++;	
+							//BJSIMCaDifferent++;	
 						}
-
+					
 						//
 						if((BaoJingValueObj.WaiBuDianYuanPowerOff == 0)&&(BaoJingValueObj.GPSCaiChuBaoJing == 0)&&(BaoJingValueObj.BackBatteryPowerOff ==0)&&(BaoJingValueObj.SIMCardChangeAlarm == 0))
 						{
-							FlagBaoJing = 0;
+							FlagBaoJing = 0;						
 						}
-						#endif
 
-						if(((FlagBaoJing)&&(BJWaiBuDianYuan<5))||((FlagBaoJing)&&(BJBeiyongDianchiQianYa<5))||((FlagBaoJing)&&(BJSIMCaDifferent<5))||((FlagBaoJing)&&(BJGPSCaichu<5)))
+						#if 0
+						if(((FlagBaoJing)&&(BJWaiBuDianYuan<3))||((FlagBaoJing)&&(BJBeiyongDianchiQianYa<3))||((FlagBaoJing)&&(BJSIMCaDifferent<3))||((FlagBaoJing)&&(BJGPSCaichu<3)))
 						{
 						  BJWaiBuDianYuan++;
-						  GprsConnectTcpState = AlarmBDRSSend(NewCarData); 
+						  AlarmBDRSSend(NewCarData); 	//GprsConnectTcpState =
 						}
 						else
 						{
 						 GprsConnectTcpState = GprsSendData(NewCarData);//发送车辆状态信息
 						}
+
+						#endif
+
+							if((volt_bat>37)&&(voltage < 50))//在单独接锂电池的时候也能正常工作，此时can已经停止工作。
+							{
+									tongxintime=0;
+							}
+		   
+						   #if 1
+						   if((lsnum<3)&&(FlagBaoJing == 1))
+						   {
+						   		
+						   		GprsConnectTcpState = AlarmBDRSSend(NewCarData); 	//GprsConnectTcpState =	
+								lsnum++;
+							
+						   }
+						   else
+						   {
+						   		GprsConnectTcpState = GprsSendData(NewCarData);//发送车辆状态信息
+								/*
+								cdnum++;
+								if(cdnum>655)
+								{
+									lsnum = 0;
+									cdnum = 0;
+								}
+								*/
+						   }
+						   #endif
+
+
+						   //GprsConnectTcpState = GprsSendData(NewCarData);//发送车辆状态信息
+
 
 
 						if((GprsConnectTcpState == 4 )||(GprsConnectTcpState == 0 ))
@@ -1530,7 +1577,7 @@ int main(void)
 	//Send_data(0x63,avtime);
 	Send_data(0x64,voltage);
 	NewMachineFrame.u16voltage = 	 voltage;
-/*	
+	
 	Send_data(0x5a,tbflag1);
 	Send_data(0x5b,tbflag2);
 	Send_data(0x5c,tbflag3);
@@ -1545,7 +1592,7 @@ int main(void)
 	else
 	{Send_longdata(0x79,sum_kilometre);}
 	NewMachineFrame.u32milsage = sum_kilometre;
-	*/
+	
 	//Send_longdata(0x79,ylad);//测油量
 	/* k++;
 	if(k>10)
@@ -1576,6 +1623,7 @@ int main(void)
 	 }*/
 
 #endif
+
 		Adc_Data();
 		if(mmhoursopen>=30)
 		{

@@ -3,7 +3,7 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Administrator\Desktop\BDRSBack\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\UART_TxRx_Function\KEIL\UART_TxRx_Function.uvproj
+C:\Users\Administrator\Desktop\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\UART_TxRx_Function\KEIL\UART_TxRx_Function.uvproj
 Project File Date:  07/27/2017
 
 <h2>Output:</h2>
@@ -55,12 +55,12 @@ compiling adc.c...
 compiling fmc.c...
 compiling wdt.c...
 linking...
-Program Size: Code=16180 RO-data=972 RW-data=564 ZI-data=3708  
+Program Size: Code=16244 RO-data=972 RW-data=564 ZI-data=3708  
 FromELF: creating hex file...
 User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
 User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"
 ".\obj\UART_TxRxFunction.axf" - 0 Error(s), 11 Warning(s).
-Load "C:\\Users\\Administrator\\Desktop\\BDRSBack\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
+Load "C:\\Users\\Administrator\\Desktop\\山东常林加计亩5(计亩结束发命令   20s 5分钟 新版)\\UART_TxRx_Function\\KEIL\\obj\\UART_TxRxFunction.AXF" 
 Programming Done.
 Verify OK.
 Application running...
