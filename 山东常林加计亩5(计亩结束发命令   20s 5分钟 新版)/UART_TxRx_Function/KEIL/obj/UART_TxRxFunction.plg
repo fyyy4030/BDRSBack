@@ -29,16 +29,16 @@ compiling main.c...
 ..\user\lcm.h(355): warning:  #550-D: variable "dat2" was set but never used
 ..\user\lcm.h:     unsigned int dat1,dat2;
 ..\user\lcm.h:                       ^
-..\user\M660.h(255): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h(260): warning:  #177-D: variable "i" was declared but never referenced
 ..\user\M660.h:         uint8_t i;    
 ..\user\M660.h:                 ^
-..\user\M660.h(274): warning:  #177-D: variable "i" was declared but never referenced
+..\user\M660.h(279): warning:  #177-D: variable "i" was declared but never referenced
 ..\user\M660.h:   { unsigned char i;
 ..\user\M660.h:                   ^
 ..\user\costab.h(199): warning:  #1-D: last line of file ends without a newline
 ..\user\costab.h:   #endif
 ..\user\costab.h:         ^
-..\user\main.c(873): warning:  #177-D: variable "k" was declared but never referenced
+..\user\main.c(922): warning:  #177-D: variable "k" was declared but never referenced
 ..\user\main.c:        unsigned char k=0;
 ..\user\main.c:                      ^
 ..\user\dataflash.h(479): warning: C3017W: state may be used before being set
@@ -55,7 +55,7 @@ compiling adc.c...
 compiling fmc.c...
 compiling wdt.c...
 linking...
-Program Size: Code=15880 RO-data=972 RW-data=564 ZI-data=3708  
+Program Size: Code=16180 RO-data=972 RW-data=564 ZI-data=3708  
 FromELF: creating hex file...
 User command #1: fromelf --bin ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.bin"
 User command #2: fromelf --text -c ".\obj\UART_TxRxFunction.axf" --output ".\obj\UART_TxRxFunction.txt"

@@ -29,7 +29,7 @@
 
 //wushengjun add 2017.7.27
 //const char *at_command[18]={"at\r","at+csq\r","AT+CPIN?\r","AT+CMGF=0\r","AT+CIMI\r","at+csq\r","at+creg=2\r","at+creg?\r", "AT+CGATT=1\r",  "AT+CGATT?\r",  "AT+CIPSHUT\r", "at+cipmux?\r","at+cipmux=1\r","AT+CSTT=\"CMNET\"\r",  "AT+CIICR\r",  "AT+CIFSR\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0," };
-const char *at_command[10]={"at\r","AT+CIPSHUT\r","at+cipmux=1\r","at+creg?\r","AT+CSTT=\"CMNET\"\r","AT+CIICR\r","AT+CIFSR\r","AT+CCID\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0," };
+const char *at_command[10]={"at\r","AT+CIPSHUT\r","at+cipmux=1\r","at+creg?\r","AT+CSTT=\"CMNET\"\r","AT+CIICR\r","AT+CIFSR\r","AT+CCID\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8880\r","AT+CIPSEND=0," };
 
 //const char *at_command[9]={"at\r","at+ccid\r","AT+CIPMUX=1\r" "at+csq\r","at+creg?\r","AT+CSTT=CMNET","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0,\r"}; //,"at+cgdcont=1,\"IP\",\"cmnet\"\r", "AT+CIICR\r", 
 const char *at_command_reply[11]={"at\r\r\nOK\r\n","OK","OK\r\n","+CREG: 0,1\r\n\r\nOK\r\n","OK","OK","\r\n","OK","CONNECT OK",">","SEND OK" };
@@ -117,7 +117,12 @@ void uart2TOpfnCallback(UINT8* u8Buf,UINT32 u32Len);
 //Function:	报警变量
 //Name: FlagBaoJing
 //
-unsigned char FlagBaoJing = 1;
+unsigned char BJWaiBuDianYuan = 0;
+unsigned char BJBeiyongDianchiQianYa = 0;
+unsigned char BJSIMCaDifferent = 0;
+unsigned char BJGPSCaichu = 0;
+
+unsigned char FlagBaoJing = 0;
 unsigned char CCIDReadFromeSimCardFlag = 0;//CCID 读取标志
 /*********************************************************************************************************************/
 
@@ -1597,7 +1602,8 @@ UINT8 AlarmBDRSSend(struct CarData NewCarData)
 
              DataSended  = 1;    
              Gprs_Timeout_Count = 0;        
-              return 3; 
+              return 3;
+			    
           }
               
       }
@@ -1640,7 +1646,9 @@ UINT8 AlarmBDRSSend(struct CarData NewCarData)
           gprsNoConnect = 0;
           Gprs_Timeout_Count = 0;
 
-		  FlagBaoJing = 0;
+		  //FlagBaoJing = 0;
+		  GprsSendComm("wsjok!\r");
+
           return 4;
        }   
     }
