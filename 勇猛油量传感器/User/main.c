@@ -16,8 +16,14 @@
 
 
 #define PLL_CLOCK           50000000
-
 #define RXBUFSIZE 1024
+
+
+#define sysTxBufReadNextOne()	(((_sys_uUartTxHead+1)==UART_BUFFSIZE)? NULL: _sys_uUartTxHead+1)
+#define sysTxBufWriteNextOne()	(((_sys_uUartTxTail+1)==UART_BUFFSIZE)? NULL: _sys_uUartTxTail+1)
+#define UART_BUFFSIZE	256
+static uint8_t _sys_ucUartTxBuf[UART_BUFFSIZE];
+static uint16_t volatile _sys_uUartTxHead, _sys_uUartTxTail;
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
@@ -28,6 +34,12 @@ volatile uint32_t g_u32comRbytes = 0;
 volatile uint32_t g_u32comRhead  = 0;
 volatile uint32_t g_u32comRtail  = 0;
 volatile int32_t g_bWait         = TRUE;
+
+//wsj add 2017.8.24
+int CounterLed = 0;
+uint32_t counter = 0;
+uint8_t TestBuffer[1024] ={0x32,0x33,0x34,0x35};
+uint8_t i; 
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define functions prototype                                                                              */
@@ -75,7 +87,41 @@ void SYS_Init(void)
     SYS->P3_MFP &= ~(SYS_MFP_P30_Msk | SYS_MFP_P31_Msk);
     SYS->P3_MFP |= (SYS_MFP_P30_RXD0 | SYS_MFP_P31_TXD0);
 
+	//Led init
+	GPIO_SetMode(P4, BIT2, GPIO_PMD_OUTPUT);//Led init
+
 }
+
+//wushengjun add 2017.8.22
+void TIMER1_Init()
+{
+	CLK_EnableModuleClock(TMR1_MODULE);
+    CLK_SetModuleClock(TMR1_MODULE, CLK_CLKSEL1_TMR1_S_HXT, 0);
+    /* Open Timer0 in periodic mode, enable interrupt and 10 interrupt tick per second */
+    TIMER_Open(TIMER1, TIMER_PERIODIC_MODE, 10);   //1HZÖÜÆÚÖÐ¶Ï
+    TIMER_EnableInt(TIMER1); 	
+    /* Enable Timer0  NVIC */
+    NVIC_EnableIRQ(TMR1_IRQn);
+	/* Start Timer0  counting */
+    TIMER_Start(TIMER1);
+
+}
+
+void TMR1_IRQHandler(void)  //1s
+{
+	TIMER_ClearIntFlag(TIMER1);
+	CounterLed++;
+	if(CounterLed == 10)
+	{
+		P42 = 1;
+	}
+	else if(CounterLed == 20)
+	{
+		P42 = 0;
+		CounterLed = 0;
+	}
+}
+
 
 void UART0_Init()
 {
@@ -87,6 +133,37 @@ void UART0_Init()
 
     /* Configure UART0 and set UART0 Baudrate */
     UART_Open(UART0, 115200);
+
+	_sys_uUartTxHead = _sys_uUartTxTail = NULL;
+}
+
+
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+
+static void _PutChar_f(uint8_t ucCh)
+{ 
+	while(sysTxBufWriteNextOne() == _sys_uUartTxHead) ;	// buffer full		
+	_sys_ucUartTxBuf[_sys_uUartTxTail] = ucCh;
+	_sys_uUartTxTail = sysTxBufWriteNextOne();  
+	if( (UART0->IER & UART_IER_THRE_IEN_Msk)== 0)
+	UART_EnableInt(UART0,  UART_IER_THRE_IEN_Msk );
+
+}
+
+static void sysPrintf(char *pcStr)
+{
+   	while (*pcStr)
+	{           
+	 	_PutChar_f(*pcStr++);
+	}
+
+}
+
+void  GprsSendComm(char *comm) 
+{
+    sysPrintf(comm); 
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -109,6 +186,9 @@ int main(void)
 
     /* Lock protected registers */
     SYS_LockReg();
+
+	/* Timer init */
+	TIMER1_Init();
 
     /* Init UART0 for printf and testing */
     UART0_Init();
@@ -149,7 +229,7 @@ void UART_TEST_HANDLE()
 
     if(u32IntSts & UART_ISR_RDA_INT_Msk)
     {
-        printf("\nInput:");
+        //printf("\nInput:");
 
         /* Get all the input characters */
         while(UART_IS_RX_READY(UART0))
@@ -157,7 +237,7 @@ void UART_TEST_HANDLE()
             /* Get the character from UART Buffer */
             u8InChar = UART_READ(UART0);
 
-            printf("%c ", u8InChar);
+            //printf("%c ", u8InChar);
 
             if(u8InChar == '0')
             {
@@ -176,6 +256,7 @@ void UART_TEST_HANDLE()
         printf("\nTransmission Test:");
     }
 
+  #if 0
     if(u32IntSts & UART_ISR_THRE_INT_Msk)
     {
         uint16_t tmp;
@@ -189,8 +270,46 @@ void UART_TEST_HANDLE()
             g_u32comRbytes--;
         }
     }
+ #endif
+
+
+    if(u32IntSts & UART_ISR_THRE_INT_Msk)
+    {
+		   	if (_sys_uUartTxHead == _sys_uUartTxTail) 
+			{									 
+				
+				UART_DisableInt(UART0,  UART_IER_THRE_IEN_Msk );
+			} 
+			else
+			{
+				
+				for (i=0; i<8; i++)
+				{ 		
+				  UART0->THR =  _sys_ucUartTxBuf[_sys_uUartTxHead];			
+				  _sys_uUartTxHead = sysTxBufReadNextOne();
+				  if (_sys_uUartTxHead == _sys_uUartTxTail) // buffer empty
+						break;
+				}
+			}
+    }
+
 }
 
+
+
+void SendData(uint8_t *BufferSend,uint8_t len)
+{
+	
+	for(counter = 0; counter < len; counter++)
+	{		
+		UART_WRITE(UART0, BufferSend[counter]);
+		counter++;
+		if( (UART0->IER & UART_IER_THRE_IEN_Msk)== 0)
+		UART_EnableInt(UART0,  UART_IER_THRE_IEN_Msk );	
+	}
+
+	counter = 0;		
+}
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function Test                                                                                     */
@@ -215,7 +334,15 @@ void UART_FunctionTest()
     /* Enable Interrupt and install the call back function */
     UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
     NVIC_EnableIRQ(UART0_IRQn);
-    while(g_bWait);
+    //while(g_bWait);
+
+	//SendData(TestBuffer,4);
+	GprsSendComm((char *)TestBuffer);
+	while(g_bWait)
+	{
+		//P42 ^= 1;
+		//SendData(TestBuffer,4);
+	}
 
     /* Disable Interrupt */
     UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
