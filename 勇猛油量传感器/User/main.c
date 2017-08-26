@@ -131,7 +131,8 @@ void UART0_Init()
     SYS_ResetModule(UART0_RST);
 
     /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    //UART_Open(UART0, 115200);
+	UART_Open(UART0, 9600);
 
 	_sys_uUartTxHead = _sys_uUartTxTail = NULL;
 }
@@ -334,13 +335,34 @@ void UART_FunctionTest()
     UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
     NVIC_EnableIRQ(UART0_IRQn);
     //while(g_bWait);
-
-	//SendData(TestBuffer,4);
-	GprsSendComm((char *)TestBuffer);
 	while(g_bWait)
 	{
-		//P42 ^= 1;
-		//SendData(TestBuffer,4);
+	    GprsSendComm((char *)TestBuffer);
+		GprsSendComm("\r\n");
+	}
+
+    /* Disable Interrupt */
+    //UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    //NVIC_DisableIRQ(UART0_IRQn);
+    g_bWait = TRUE;
+    printf("\nUART Sample Demo End.\n");
+
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+/*  UART Function Send MIYAO                                                                                     */
+/*---------------------------------------------------------------------------------------------------------*/
+void UART_SendMiYao()
+{
+
+    /* Enable Interrupt and install the call back function */
+    UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    NVIC_EnableIRQ(UART0_IRQn);
+    //while(g_bWait);
+	while(g_bWait)
+	{
+	    GprsSendComm((char *)TestBuffer);
+		GprsSendComm("\r\n");
 	}
 
     /* Disable Interrupt */
@@ -350,8 +372,6 @@ void UART_FunctionTest()
     printf("\nUART Sample Demo End.\n");
 
 }
-
-
 
 
 /*-----------------------------------------------------------------------------------------------------------*/
