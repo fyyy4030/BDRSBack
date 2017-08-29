@@ -11,6 +11,7 @@
  *
  ******************************************************************************/
 #include <stdio.h>
+#include <stdlib.h>
 #include "M051Series.h"
 
 
@@ -165,6 +166,21 @@ void  GprsSendComm(char *comm)
 {
     sysPrintf(comm); 
 }
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+//Function:
+//
+void GetSrand(unsigned int seeder)
+{
+	srand(seeder);
+	for(i = 0; i < 2; i++)
+	{
+		int c=rand()%200;
+		printf("%d\t",c);
+	}
+}
+/*---------------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* UART Test Sample                                                                                        */
@@ -337,8 +353,9 @@ void UART_FunctionTest()
     //while(g_bWait);
 	while(g_bWait)
 	{
-	    GprsSendComm((char *)TestBuffer);
-		GprsSendComm("\r\n");
+	    //GprsSendComm((char *)TestBuffer);
+		//GprsSendComm("\r\n");
+		GetSrand(5);
 	}
 
     /* Disable Interrupt */

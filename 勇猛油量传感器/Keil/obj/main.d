@@ -1,5 +1,6 @@
 .\obj\main.o: ..\User\main.c
 .\obj\main.o: d:\Keil\ARM\RV31\INC\stdio.h
+.\obj\main.o: d:\Keil\ARM\RV31\INC\stdlib.h
 .\obj\main.o: ..\Library\Device\Nuvoton\M051Series\Include\M051Series.h
 .\obj\main.o: ..\Library\CMSIS\Include\core_cm0.h
 .\obj\main.o: d:\Keil\ARM\RV31\INC\stdint.h
