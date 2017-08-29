@@ -25,6 +25,10 @@
 static uint8_t _sys_ucUartTxBuf[UART_BUFFSIZE];
 static uint16_t volatile _sys_uUartTxHead, _sys_uUartTxTail;
 
+unsigned char JiaMiCoordinate[5];
+
+unsigned char youliang;
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -37,9 +41,14 @@ volatile int32_t g_bWait         = TRUE;
 
 //wsj add 2017.8.24
 int CounterLed = 0;
+int CounterDelay = 0;
 uint32_t counter = 0;
 uint8_t TestBuffer[1024] ={0x32,0x33,0x34,0x35};
-uint8_t i; 
+uint8_t i;
+unsigned char SendBuffer[256] ={0};
+ 
+volatile uint32_t g_u32AdcIntFlag;
+
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define functions prototype                                                                              */
@@ -73,6 +82,17 @@ void SYS_Init(void)
     /* Set core clock as PLL_CLOCK from PLL */
     CLK_SetCoreClock(PLL_CLOCK);
 
+
+
+
+	/* Enable ADC module clock */
+    CLK_EnableModuleClock(ADC_MODULE);
+    /* ADC clock source is 22.1184MHz, set divider to 7, ADC clock is 22.1184/7 MHz */
+    CLK_SetModuleClock(ADC_MODULE, CLK_CLKSEL1_ADC_S_HIRC, CLK_CLKDIV_ADC(7));
+
+
+
+
     /* Enable UART module clock */
     CLK_EnableModuleClock(UART0_MODULE);
 
@@ -90,7 +110,22 @@ void SYS_Init(void)
 	//Led init
 	GPIO_SetMode(P4, BIT2, GPIO_PMD_OUTPUT);//Led init
 
+	//ADC Init
+	/* Disable the P1.0 - P1.3 digital input path to avoid the leakage current */
+    GPIO_DISABLE_DIGITAL_PATH(P1, 0xF);
+
+    /* Configure the P1.0 - P1.3 ADC analog input pins */
+    SYS->P1_MFP &= ~(SYS_MFP_P10_Msk | SYS_MFP_P11_Msk | SYS_MFP_P12_Msk | SYS_MFP_P13_Msk);
+    SYS->P1_MFP |= SYS_MFP_P10_AIN0 | SYS_MFP_P11_AIN1 | SYS_MFP_P12_AIN2 | SYS_MFP_P13_AIN3 ;
+
 }
+
+
+
+
+
+
+
 
 //wushengjun add 2017.8.22
 void TIMER1_Init()
@@ -120,7 +155,173 @@ void TMR1_IRQHandler(void)  //1s
 		P42 = 0;
 		CounterLed = 0;
 	}
+	CounterDelay++;
+	if(CounterDelay == 100)
+	{
+		CounterDelay = 0;
+	}
 }
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* Function: AdcSingleModeTest                                                                             */
+/*                                                                                                         */
+/* Parameters:                                                                                             */
+/*   None.                                                                                                 */
+/*                                                                                                         */
+/* Returns:                                                                                                */
+/*   None.                                                                                                 */
+/*                                                                                                         */
+/* Description:                                                                                            */
+/*   ADC single mode test.                                                                                 */
+/*---------------------------------------------------------------------------------------------------------*/
+void AdcSingleModeTest()
+{
+    uint8_t  u8Option;
+    int32_t  i32ConversionData;
+
+    printf("\n");
+    printf("+----------------------------------------------------------------------+\n");
+    printf("|                      ADC single mode sample code                     |\n");
+    printf("+----------------------------------------------------------------------+\n");
+
+    while(1)
+    {
+	/*
+        printf("Select input mode:\n");
+        printf("  [1] Single end input (channel 2 only)\n");
+        printf("  [2] Differential input (channel pair 1 only)\n");
+        printf("  Other keys: exit single mode test\n");
+    */  
+	    //u8Option = getchar();
+        u8Option = '1';
+		if(u8Option == '1')
+        {
+
+            /* Set the ADC operation mode as single, input mode as single-end and enable the analog input channel 2 */
+            ADC_Open(ADC, ADC_ADCR_DIFFEN_SINGLE_END, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+
+            /* Power on ADC module */
+            ADC_POWER_ON(ADC);
+
+            /* clear the A/D interrupt flag for safe */
+            ADC_CLR_INT_FLAG(ADC, ADC_ADF_INT);
+
+            /* Enable the ADC interrupt */
+            ADC_EnableInt(ADC, ADC_ADF_INT);
+            NVIC_EnableIRQ(ADC_IRQn);
+
+            /* Reset the ADC interrupt indicator and Start A/D conversion */
+            g_u32AdcIntFlag = 0;
+            ADC_START_CONV(ADC);
+
+		
+
+            /* Wait ADC interrupt (g_u32AdcIntFlag will be set at IRQ_Handler function)*/
+            while(g_u32AdcIntFlag == 0);
+
+            /* Disable the ADC interrupt */
+            ADC_DisableInt(ADC, ADC_ADF_INT);
+
+            /* Get the conversion result of the ADC channel 2 */
+            i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 2);
+            printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
+
+			while(CounterDelay != 10);
+
+		
+        }
+        else if(u8Option == '2')
+        {
+
+            /* Set the ADC operation mode as single, input mode as differential and
+               enable analog input channel 2 for differential input channel pair 1*/
+            ADC_Open(ADC, ADC_ADCR_DIFFEN_DIFFERENTIAL, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+
+            /* Power on ADC module */
+            ADC_POWER_ON(ADC);
+
+            /* clear the A/D interrupt flag for safe */
+            ADC_CLR_INT_FLAG(ADC, ADC_ADF_INT);
+
+            /* Enable the ADC interrupt */
+            ADC_EnableInt(ADC, ADC_ADF_INT);
+            NVIC_EnableIRQ(ADC_IRQn);
+
+            /* Reset the ADC interrupt indicator and Start A/D conversion */
+            g_u32AdcIntFlag = 0;
+            ADC_START_CONV(ADC);
+
+            /* Wait ADC interrupt (g_u32AdcIntFlag will be set at IRQ_Handler function)*/
+            while(g_u32AdcIntFlag == 0);
+
+            /* Disable the ADC interrupt */
+            ADC_DisableInt(ADC, ADC_ADF_INT);
+
+            /* Get the conversion result of the specified ADC channel */
+            i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 2);
+            printf("Conversion result of channel pair 1: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
+        }
+        else
+            return ;
+
+    }
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+// ADC Oil capture
+// Function:  ADC oil
+// Function Name:   CaptureOilValue
+// Author And Date: wushengjun 2017.8.29 
+/*---------------------------------------------------------------------------------------------------------*/
+void CaptureOilValue()
+{
+			int32_t  i32ConversionData;
+
+            /* Set the ADC operation mode as single, input mode as single-end and enable the analog input channel 2 */
+            ADC_Open(ADC, ADC_ADCR_DIFFEN_SINGLE_END, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+
+            /* Power on ADC module */
+            ADC_POWER_ON(ADC);
+
+            /* clear the A/D interrupt flag for safe */
+            ADC_CLR_INT_FLAG(ADC, ADC_ADF_INT);
+
+            /* Enable the ADC interrupt */
+            ADC_EnableInt(ADC, ADC_ADF_INT);
+            NVIC_EnableIRQ(ADC_IRQn);
+
+            /* Reset the ADC interrupt indicator and Start A/D conversion */
+            g_u32AdcIntFlag = 0;
+            ADC_START_CONV(ADC);
+
+            /* Wait ADC interrupt (g_u32AdcIntFlag will be set at IRQ_Handler function)*/
+            while(g_u32AdcIntFlag == 0);
+
+            /* Disable the ADC interrupt */
+            ADC_DisableInt(ADC, ADC_ADF_INT);
+
+            /* Get the conversion result of the ADC channel 2 */
+            i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 2);
+            printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
+
+		//	while(CounterDelay != 10);		
+}                                                                                         
+/*---------------------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* ADC interrupt handler                                                                                   */
+/*---------------------------------------------------------------------------------------------------------*/
+void ADC_IRQHandler(void)
+{
+    g_u32AdcIntFlag = 1;
+    ADC_CLR_INT_FLAG(ADC, ADC_ADF_INT); /* clear the A/D conversion flag */
+}
+
 
 
 void UART0_Init()
@@ -162,7 +363,7 @@ static void sysPrintf(char *pcStr)
 
 }
 
-void  GprsSendComm(char *comm) 
+void  SendToComm(char *comm) 
 {
     sysPrintf(comm); 
 }
@@ -171,61 +372,17 @@ void  GprsSendComm(char *comm)
 /*---------------------------------------------------------------------------------------------------------*/
 //Function:
 //
-void GetSrand(unsigned int seeder)
+void GetSrand(unsigned int seeder,unsigned char TempArray[])
 {
-	srand(seeder);
+	 srand(seeder);
 	for(i = 0; i < 2; i++)
-	{
-		int c=rand()%200;
-		printf("%d\t",c);
+	{	 
+		
+		TempArray[i]=rand()%200;
+		printf("temparray[%d]  = %d\t",i,TempArray[i]);
 	}
 }
 /*---------------------------------------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------------------------------------*/
-/* UART Test Sample                                                                                        */
-/* Test Item                                                                                               */
-/* It sends the received data to HyperTerminal.                                                            */
-/*---------------------------------------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------------------------------------*/
-/* MAIN function                                                                                           */
-/*---------------------------------------------------------------------------------------------------------*/
-
-int main(void)
-{
-    /* Unlock protected registers */
-    SYS_UnlockReg();
-
-    /* Init System, peripheral clock and multi-function I/O */
-    SYS_Init();
-
-    /* Lock protected registers */
-    SYS_LockReg();
-
-	/* Timer init */
-	TIMER1_Init();
-
-    /* Init UART0 for printf and testing */
-    UART0_Init();
-
-    /*---------------------------------------------------------------------------------------------------------*/
-    /* SAMPLE CODE                                                                                             */
-    /*---------------------------------------------------------------------------------------------------------*/
-
-    printf("\n\nCPU @ %dHz\n", SystemCoreClock);
-
-    printf("\n\nUART Sample Program\n");
-
-    /* UART sample function */
-    UART_FunctionTest();
-    
-    while(1)
-	{
-	 	printf("\n\nwushengjun wubinghan\n");
-	}
-
-}
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* ISR to handle UART Channel 0 interrupt event                                                            */
@@ -353,9 +510,8 @@ void UART_FunctionTest()
     //while(g_bWait);
 	while(g_bWait)
 	{
-	    //GprsSendComm((char *)TestBuffer);
-		//GprsSendComm("\r\n");
-		GetSrand(5);
+	    SendToComm((char *)TestBuffer);
+		SendToComm("\r\n");
 	}
 
     /* Disable Interrupt */
@@ -366,29 +522,7 @@ void UART_FunctionTest()
 
 }
 
-/*---------------------------------------------------------------------------------------------------------*/
-/*  UART Function Send MIYAO                                                                                     */
-/*---------------------------------------------------------------------------------------------------------*/
-void UART_SendMiYao()
-{
 
-    /* Enable Interrupt and install the call back function */
-    UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
-    NVIC_EnableIRQ(UART0_IRQn);
-    //while(g_bWait);
-	while(g_bWait)
-	{
-	    GprsSendComm((char *)TestBuffer);
-		GprsSendComm("\r\n");
-	}
-
-    /* Disable Interrupt */
-    UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
-    NVIC_DisableIRQ(UART0_IRQn);
-    g_bWait = TRUE;
-    printf("\nUART Sample Demo End.\n");
-
-}
 
 
 /*-----------------------------------------------------------------------------------------------------------*/
@@ -420,5 +554,142 @@ const unsigned char MIYAO[] = {
 						0x38,0x07,0xf4,0x5d,0x3a,0x08,0x3c,0xc2,0xaa,0x1b,
 						0x99,0x8f,0x54,0xf2,0xfb,0x21,0x56,0xda,0x59,0x0e
 					};
+
+
+
+
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/*  UART Function Send MIYAO                                                                               */
+/*---------------------------------------------------------------------------------------------------------*/
+void UART_SendMiYao()
+{
+
+    /* Enable Interrupt and install the call back function */
+    UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    NVIC_EnableIRQ(UART0_IRQn);
+    //while(g_bWait);
+	while(g_bWait)
+	{
+		GetSrand(2,JiaMiCoordinate);
+		CaptureOilValue();
+		while(CounterDelay == 100);
+	}
+
+    /* Disable Interrupt */
+    //UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    //NVIC_DisableIRQ(UART0_IRQn);
+    g_bWait = TRUE;
+    printf("\nUART Sample Demo End.\n");
+
+}
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/*  UART Function UART_SendData()                                                                              */
+/*---------------------------------------------------------------------------------------------------------*/
+
+void UART_SendData()
+{
+	SendBuffer[0] = 0xfe;
+	SendBuffer[1] = 0xfd;
+
+	SendBuffer[2]  = (JiaMiCoordinate[2]&0x7f);
+	SendBuffer[3] = ((JiaMiCoordinate[0]>>8)&0xff);
+	SendBuffer[4] = (JiaMiCoordinate[0]&0xff);
+	SendBuffer[5] = (JiaMiCoordinate[1]&0xff);
+	SendBuffer[6] = ((JiaMiCoordinate[1]>>8)&0xff);
+	SendBuffer[7] = (0xff&(youliang>>16));
+	SendBuffer[8] = (0xff&(youliang>>8));
+	SendBuffer[9] = (0xff&youliang);
+	SendBuffer[10] = SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]
+	
+										^SendBuffer[8]^SendBuffer[9];
+   /*
+	for(y=0;y<11;y++)
+	{
+			Send_Data_To_PC(miyao.txbuf[y]);
+	}
+	*/
+
+
+	//GprsSendComm(char *comm);	
+}
+
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* UART Test Sample                                                                                        */
+/* Test Item                                                                                               */
+/* It sends the received data to HyperTerminal.                                                            */
+/*---------------------------------------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* MAIN function                                                                                           */
+/*---------------------------------------------------------------------------------------------------------*/
+
+int main(void)
+{
+    /* Unlock protected registers */
+    SYS_UnlockReg();
+
+    /* Init System, peripheral clock and multi-function I/O */
+    SYS_Init();
+
+    /* Lock protected registers */
+    SYS_LockReg();
+
+	/* Timer init */
+	TIMER1_Init();
+
+    /* Init UART0 for printf and testing */
+    UART0_Init();
+
+#if 1
+    /*---------------------------------------------------------------------------------------------------------*/
+    /* SAMPLE CODE                                                                                             */
+    /*---------------------------------------------------------------------------------------------------------*/
+
+    printf("\n\nCPU @ %dHz\n", SystemCoreClock);
+
+    printf("\n\nUART Sample Program\n");
+
+    /* UART sample function */
+    //UART_FunctionTest();
+	UART_SendMiYao(); 
+    while(1)
+	{
+	 	printf("\r\nwushengjun wubinghan\n");
+		UART_SendData();
+	}
+#endif
+
+#if 0
+    /*---------------------------------------------------------------------------------------------------------*/
+    /* SAMPLE CODE                                                                                             */
+    /*---------------------------------------------------------------------------------------------------------*/
+
+    printf("\nSystem clock rate: %d Hz", SystemCoreClock);
+
+    /* Single Mode test */
+    AdcSingleModeTest();
+
+    /* Disable ADC module */
+    ADC_Close(ADC);
+
+    /* Disable ADC IP clock */
+    CLK_DisableModuleClock(ADC_MODULE);
+
+    /* Disable External Interrupt */
+    NVIC_DisableIRQ(ADC_IRQn);
+
+    printf("\nExit ADC sample code\n");
+
+    while(1);
+#endif
+
+}
+
+
 
 
