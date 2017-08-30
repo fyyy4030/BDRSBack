@@ -57,6 +57,12 @@ int32_t main(void);
 void UART_TEST_HANDLE(void);
 void UART_FunctionTest(void);
 
+void UART_SendMiYaoData();
+void UART_SendData();
+void SendData(uint8_t *BufferSend,uint8_t len);
+void  SendToComm(char *comm);
+static void _PutChar_f(uint8_t ucCh);
+static void sysPrintf(char *pcStr);
 
 void SYS_Init(void)
 {
@@ -113,10 +119,14 @@ void SYS_Init(void)
 	//ADC Init
 	/* Disable the P1.0 - P1.3 digital input path to avoid the leakage current */
     GPIO_DISABLE_DIGITAL_PATH(P1, 0xF);
+	GPIO_DISABLE_DIGITAL_PATH(P1, BIT4);
 
     /* Configure the P1.0 - P1.3 ADC analog input pins */
-    SYS->P1_MFP &= ~(SYS_MFP_P10_Msk | SYS_MFP_P11_Msk | SYS_MFP_P12_Msk | SYS_MFP_P13_Msk);
-    SYS->P1_MFP |= SYS_MFP_P10_AIN0 | SYS_MFP_P11_AIN1 | SYS_MFP_P12_AIN2 | SYS_MFP_P13_AIN3 ;
+    //SYS->P1_MFP &= ~(SYS_MFP_P10_Msk | SYS_MFP_P11_Msk | SYS_MFP_P12_Msk | SYS_MFP_P13_Msk);
+    //SYS->P1_MFP |= SYS_MFP_P10_AIN0 | SYS_MFP_P11_AIN1 | SYS_MFP_P12_AIN2 | SYS_MFP_P13_AIN3 ;
+
+	SYS->P1_MFP &= ~(SYS_MFP_P10_Msk | SYS_MFP_P11_Msk | SYS_MFP_P12_Msk | SYS_MFP_P13_Msk|SYS_MFP_P14_Msk);
+    SYS->P1_MFP |= SYS_MFP_P10_AIN0 | SYS_MFP_P11_AIN1 | SYS_MFP_P12_AIN2 | SYS_MFP_P13_AIN3| SYS_MFP_P14_AIN4 ;
 
 }
 
@@ -190,14 +200,14 @@ void AdcSingleModeTest()
 
     while(1)
     {
-	/*
+	
         printf("Select input mode:\n");
         printf("  [1] Single end input (channel 2 only)\n");
         printf("  [2] Differential input (channel pair 1 only)\n");
         printf("  Other keys: exit single mode test\n");
-    */  
-	    //u8Option = getchar();
-        u8Option = '1';
+      
+	    u8Option = getchar();
+        //u8Option = '1';
 		if(u8Option == '1')
         {
 
@@ -228,9 +238,12 @@ void AdcSingleModeTest()
 
             /* Get the conversion result of the ADC channel 2 */
             i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 2);
+
+			youliang = 	i32ConversionData;
+
             printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
 
-			while(CounterDelay != 10);
+			//while(CounterDelay != 10);
 
 		
         }
@@ -240,6 +253,8 @@ void AdcSingleModeTest()
             /* Set the ADC operation mode as single, input mode as differential and
                enable analog input channel 2 for differential input channel pair 1*/
             ADC_Open(ADC, ADC_ADCR_DIFFEN_DIFFERENTIAL, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+
+			
 
             /* Power on ADC module */
             ADC_POWER_ON(ADC);
@@ -282,7 +297,8 @@ void CaptureOilValue()
 			int32_t  i32ConversionData;
 
             /* Set the ADC operation mode as single, input mode as single-end and enable the analog input channel 2 */
-            ADC_Open(ADC, ADC_ADCR_DIFFEN_SINGLE_END, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+            //ADC_Open(ADC, ADC_ADCR_DIFFEN_SINGLE_END, ADC_ADCR_ADMD_SINGLE, 0x1 << 2);
+			ADC_Open(ADC, ADC_ADCR_DIFFEN_DIFFERENTIAL, ADC_ADCR_ADMD_SINGLE, BIT4);
 
             /* Power on ADC module */
             ADC_POWER_ON(ADC);
@@ -305,7 +321,7 @@ void CaptureOilValue()
             ADC_DisableInt(ADC, ADC_ADF_INT);
 
             /* Get the conversion result of the ADC channel 2 */
-            i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 2);
+            i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 4);
             printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
 
 		//	while(CounterDelay != 10);		
@@ -572,8 +588,9 @@ void UART_SendMiYao()
     //while(g_bWait);
 	while(g_bWait)
 	{
-		GetSrand(2,JiaMiCoordinate);
-		CaptureOilValue();
+		//GetSrand(2,JiaMiCoordinate);
+		//CaptureOilValue();
+		UART_SendMiYaoData();
 		while(CounterDelay == 100);
 	}
 
@@ -587,6 +604,39 @@ void UART_SendMiYao()
 
 
 /*---------------------------------------------------------------------------------------------------------*/
+/*  UART Function UART_SendMiYaoData()                                                                              */
+/*---------------------------------------------------------------------------------------------------------*/
+
+void UART_SendMiYaoData()
+{
+	SendBuffer[0] = 0xfe;
+	SendBuffer[1] = 0xfd;
+
+	SendBuffer[2]  = 0x90;//(JiaMiCoordinate[2]&0x7f)
+	SendBuffer[3] = 0x88;//((JiaMiCoordinate[0]>>8)&0xff);
+	SendBuffer[4] = 0xad;//(JiaMiCoordinate[0]&0xff);
+	SendBuffer[5] = 0x80;//(JiaMiCoordinate[1]&0xff);
+	SendBuffer[6] = 0x05;//((JiaMiCoordinate[1]>>8)&0xff);
+	SendBuffer[7] = 0xdf;//(0xff&(youliang>>16));
+	SendBuffer[8] = 0x26;//(0xff&(youliang>>8));
+	SendBuffer[9] = 0x3d;//(0xff&youliang);
+	SendBuffer[10] = (SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]^SendBuffer[8]^SendBuffer[9]);
+   
+	#if 0
+	for(i=0;i<11;i++)
+	{
+			_PutChar_f(SendBuffer[i]);
+	}
+	#endif
+
+	SendToComm((char *)SendBuffer);
+	
+
+
+	//GprsSendComm(char *comm);	
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function UART_SendData()                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 
@@ -595,29 +645,31 @@ void UART_SendData()
 	SendBuffer[0] = 0xfe;
 	SendBuffer[1] = 0xfd;
 
-	SendBuffer[2]  = (JiaMiCoordinate[2]&0x7f);
-	SendBuffer[3] = ((JiaMiCoordinate[0]>>8)&0xff);
-	SendBuffer[4] = (JiaMiCoordinate[0]&0xff);
-	SendBuffer[5] = (JiaMiCoordinate[1]&0xff);
-	SendBuffer[6] = ((JiaMiCoordinate[1]>>8)&0xff);
+	SendBuffer[2]  = 0x90;//(JiaMiCoordinate[2]&0x7f)
+	SendBuffer[3] = 0x88;//((JiaMiCoordinate[0]>>8)&0xff);
+	SendBuffer[4] = 0xad;//(JiaMiCoordinate[0]&0xff);
+	SendBuffer[5] = 0x80;//(JiaMiCoordinate[1]&0xff);
+	SendBuffer[6] = 0x05;//((JiaMiCoordinate[1]>>8)&0xff);
+
 	SendBuffer[7] = (0xff&(youliang>>16));
 	SendBuffer[8] = (0xff&(youliang>>8));
 	SendBuffer[9] = (0xff&youliang);
-	SendBuffer[10] = SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]
-	
-										^SendBuffer[8]^SendBuffer[9];
-   /*
-	for(y=0;y<11;y++)
+
+	SendBuffer[10] = (SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]^SendBuffer[8]^SendBuffer[9]);
+   
+	#if 0
+	for(i=0;i<11;i++)
 	{
-			Send_Data_To_PC(miyao.txbuf[y]);
+			_PutChar_f(SendBuffer[i]);
 	}
-	*/
+	#endif
+
+	SendToComm((char *)SendBuffer);
+	
 
 
 	//GprsSendComm(char *comm);	
 }
-
-
 /*---------------------------------------------------------------------------------------------------------*/
 /* UART Test Sample                                                                                        */
 /* Test Item                                                                                               */
