@@ -1165,8 +1165,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5500        848        376       1088       2888     161892   Grand Totals
-      5500        848        376       1088       2888     161892   ELF Image Totals
+      5500        848        376       1088       2888     162428   Grand Totals
+      5500        848        376       1088       2888     162428   ELF Image Totals
       5500        848        376       1088          0          0   ROM Totals
 
 ==============================================================================

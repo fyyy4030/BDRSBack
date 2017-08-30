@@ -22,7 +22,7 @@
 ### ADS-LD Output File: '.\obj\YongMengOilSenser.axf'
 ### ADS-LD Command File: '.\obj\YongMengOilSenser.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile '.\obj\YongMengOilSenser.lnp', Handle=0x00000A24
+### Creating CmdFile '.\obj\YongMengOilSenser.lnp', Handle=0x000005D4
 ### Writing '.lnp' file
 ### ADS-LD Command file '.\obj\YongMengOilSenser.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.
