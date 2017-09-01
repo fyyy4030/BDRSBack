@@ -26,6 +26,9 @@ static uint8_t _sys_ucUartTxBuf[UART_BUFFSIZE];
 static uint16_t volatile _sys_uUartTxHead, _sys_uUartTxTail;
 
 unsigned char JiaMiCoordinate[5];
+unsigned short 	int MiYaoZuoBiaoX;
+unsigned short  int MiYaoZuoBiaoY;
+
 
 unsigned char youliang;
 
@@ -622,6 +625,7 @@ const unsigned char MIYAO[] = {
 /*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function Send MIYAO                                                                               */
 /*---------------------------------------------------------------------------------------------------------*/
+#if 0
 void UART_SendMiYao()
 {
 
@@ -645,12 +649,39 @@ void UART_SendMiYao()
     printf("\nUART Sample Demo End.\n");
 
 }
+#endif
+
+void UART_SendMiYao()
+{
+
+    /* Enable Interrupt and install the call back function */
+    UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    NVIC_EnableIRQ(UART0_IRQn);
+	while((g_bWait)&&(g_u8IsWDTTimeoutINT == 0))
+	{
+		GetSrand(2,JiaMiCoordinate);
+		MiYaoZuoBiaoX = JiaMiCoordinate[0];
+		MiYaoZuoBiaoY = JiaMiCoordinate[1];
+		CaptureOilValue();
+		UART_SendMiYaoData();
+		while(CounterDelay == 100);
+		WDT_RESET_COUNTER();//Î¹¹·
+	}
+
+    /* Disable Interrupt */
+    //UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
+    //NVIC_DisableIRQ(UART0_IRQn);
+    g_bWait = TRUE;
+    printf("\nUART Sample Demo End.\n");
+
+}
 
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function UART_SendMiYaoData()                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 
+#if 0
 void UART_SendMiYaoData()
 {
 	SendBuffer[0] = 0xfe;
@@ -679,11 +710,46 @@ void UART_SendMiYaoData()
 
 	//GprsSendComm(char *comm);	
 }
+#endif
+
+void UART_SendMiYaoData()
+{
+	SendBuffer[0] = 0xfe;
+	SendBuffer[1] = 0xfd;
+
+	SendBuffer[2]  = 0x90;//(JiaMiCoordinate[2]&0x7f)
+
+	SendBuffer[3] = ((MiYaoZuoBiaoX>>8)&0xff);
+	SendBuffer[4] = (MiYaoZuoBiaoX&0xff);
+
+	SendBuffer[5] = (MiYaoZuoBiaoY&0xff);
+	SendBuffer[6] = ((MiYaoZuoBiaoY>>8)&0xff);
+
+
+	SendBuffer[7] = 0xdf;//(0xff&(youliang>>16));
+	SendBuffer[8] = 0x26;//(0xff&(youliang>>8));
+	SendBuffer[9] = 0x3d;//(0xff&youliang);
+	SendBuffer[10] = (SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]^SendBuffer[8]^SendBuffer[9]);
+   
+	#if 0
+	for(i=0;i<11;i++)
+	{
+			_PutChar_f(SendBuffer[i]);
+	}
+	#endif
+
+	SendToComm((char *)SendBuffer);
+	
+
+
+	//GprsSendComm(char *comm);	
+}
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function UART_SendData()                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 
+#if 0
 void UART_SendData()
 {
 	SendBuffer[0] = 0xfe;
@@ -714,6 +780,43 @@ void UART_SendData()
 
 	//GprsSendComm(char *comm);	
 }
+#endif
+
+void UART_SendData()
+{
+	SendBuffer[0] = 0xfe;
+	SendBuffer[1] = 0xfd;
+
+	SendBuffer[2]  = (0x90&0x7f);//(JiaMiCoordinate[2]&0x7f)
+
+	SendBuffer[3] = ((MiYaoZuoBiaoX>>8)&0xff);
+	SendBuffer[4] = (MiYaoZuoBiaoX&0xff);
+
+	SendBuffer[5] = (MiYaoZuoBiaoY&0xff);
+	SendBuffer[6] = ((MiYaoZuoBiaoY>>8)&0xff);
+
+	SendBuffer[7] = (0xff&(youliang>>16));
+	SendBuffer[8] = (0xff&(youliang>>8));
+	SendBuffer[9] = (0xff&youliang);
+
+	SendBuffer[10] = (SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]^SendBuffer[8]^SendBuffer[9]);
+   
+	#if 0
+	for(i=0;i<11;i++)
+	{
+			_PutChar_f(SendBuffer[i]);
+	}
+	#endif
+
+	SendToComm((char *)SendBuffer);
+	
+
+
+	//GprsSendComm(char *comm);	
+}
+
+
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* UART Test Sample                                                                                        */
 /* Test Item                                                                                               */
@@ -741,7 +844,7 @@ int main(void)
     /* Init UART0 for printf and testing */
     UART0_Init();
 
-#if 0
+#if 1
 /*--------------------------------------------------------------------------------------------------------------*/
 // Watch dog init 
 //
@@ -793,7 +896,7 @@ int main(void)
 	}
 #endif
 
-#if 1
+#if 0
     /*---------------------------------------------------------------------------------------------------------*/
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
