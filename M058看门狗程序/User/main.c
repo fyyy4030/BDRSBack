@@ -923,7 +923,7 @@ int main(void)
 		    P00 = 1;
 			P42 = 1;
 			printf("\n*** howell wdg ***\n");
-			WDT_CLEAR_TIMEOUT_INT_FLAG();
+			WDT_RESET_COUNTER();
 			
 	   }
 	   //WDT_RESET_COUNTER();

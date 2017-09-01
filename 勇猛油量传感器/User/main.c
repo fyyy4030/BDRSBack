@@ -39,6 +39,9 @@ volatile uint32_t g_u32comRhead  = 0;
 volatile uint32_t g_u32comRtail  = 0;
 volatile int32_t g_bWait         = TRUE;
 
+volatile uint8_t g_u8IsWDTTimeoutINT = 0;
+
+
 //wsj add 2017.8.24
 int CounterLed = 0;
 int CounterDelay = 0;
@@ -88,6 +91,18 @@ void SYS_Init(void)
     /* Set core clock as PLL_CLOCK from PLL */
     CLK_SetCoreClock(PLL_CLOCK);
 
+	/*******************************************************************************************/
+	/* Enable peripheral clock */
+    CLK->APBCLK = CLK_APBCLK_UART0_EN_Msk | CLK_APBCLK_WDT_EN_Msk;
+
+    /* Peripheral clock source */
+    CLK->CLKSEL1 = CLK_CLKSEL1_UART_S_PLL | CLK_CLKSEL1_WDT_S_LIRC;
+
+    /* Update System Core Clock */
+    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+    SystemCoreClockUpdate();
+	
+	/*******************************************************************************************/
 
 
 
@@ -138,6 +153,34 @@ void SYS_Init(void)
 
 
 //wushengjun add 2017.8.22
+
+/**
+ * @brief       IRQ Handler for WDT and WWDT Interrupt
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ * @details     The WDT_IRQHandler is default IRQ of WDT and WWDT, declared in startup_M051Series.s.
+ */
+void WDT_IRQHandler(void)
+{
+    if(WDT_GET_TIMEOUT_INT_FLAG() == 1)
+    {
+        /* Clear WDT time-out interrupt flag */
+        WDT_CLEAR_TIMEOUT_INT_FLAG();
+
+        g_u8IsWDTTimeoutINT = 1;
+
+        printf("WDT time-out interrupt occurred.\n");
+    }
+}
+
+
+
+
+
+
 void TIMER1_Init()
 {
 	CLK_EnableModuleClock(TMR1_MODULE);
@@ -206,8 +249,8 @@ void AdcSingleModeTest()
         printf("  [2] Differential input (channel pair 1 only)\n");
         printf("  Other keys: exit single mode test\n");
       
-	    u8Option = getchar();
-        //u8Option = '1';
+	    //u8Option = getchar();
+        u8Option = '1';
 		if(u8Option == '1')
         {
 
@@ -586,12 +629,13 @@ void UART_SendMiYao()
     UART_ENABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
     NVIC_EnableIRQ(UART0_IRQn);
     //while(g_bWait);
-	while(g_bWait)
+	while((g_bWait)&&(g_u8IsWDTTimeoutINT == 0))
 	{
 		//GetSrand(2,JiaMiCoordinate);
 		//CaptureOilValue();
 		UART_SendMiYaoData();
 		while(CounterDelay == 100);
+		WDT_RESET_COUNTER();//Î¹¹·
 	}
 
     /* Disable Interrupt */
@@ -697,7 +741,38 @@ int main(void)
     /* Init UART0 for printf and testing */
     UART0_Init();
 
-#if 1
+#if 0
+/*--------------------------------------------------------------------------------------------------------------*/
+// Watch dog init 
+//
+    if(WDT_GET_RESET_FLAG() == 1)
+    {
+        /* Use P0.0 to check time-out period time */
+//        GPIO_SetMode(P0, 0, GPIO_PMD_OUTPUT);
+//        P00 = 1;
+//        P00 = 0;
+//
+//		P42 = 0;
+
+        WDT_CLEAR_RESET_FLAG();
+        printf("\n*** WDT time-out reset occurred ***\n");
+        //while(1);
+    }
+
+	SYS_UnlockReg();
+    g_u8IsWDTTimeoutINT = 0;
+    WDT_Open(WDT_TIMEOUT_2POW14, WDT_RESET_DELAY_1026CLK, TRUE, FALSE);
+
+    /* Enable WDT interrupt function */
+    WDT_EnableInt();
+
+    /* Enable WDT NVIC */
+    NVIC_EnableIRQ(WDT_IRQn);
+/*--------------------------------------------------------------------------------------------------------------*/
+
+
+
+
     /*---------------------------------------------------------------------------------------------------------*/
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
@@ -709,14 +784,16 @@ int main(void)
     /* UART sample function */
     //UART_FunctionTest();
 	UART_SendMiYao(); 
-    while(1)
+    //while(1)
+	while(g_u8IsWDTTimeoutINT == 0)
 	{
 	 	printf("\r\nwushengjun wubinghan\n");
-		UART_SendData();
+		//UART_SendData();
+		WDT_RESET_COUNTER();//Î¹¹·
 	}
 #endif
 
-#if 0
+#if 1
     /*---------------------------------------------------------------------------------------------------------*/
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
@@ -724,8 +801,8 @@ int main(void)
     printf("\nSystem clock rate: %d Hz", SystemCoreClock);
 
     /* Single Mode test */
-    AdcSingleModeTest();
-
+    //AdcSingleModeTest();
+	CaptureOilValue();
     /* Disable ADC module */
     ADC_Close(ADC);
 
