@@ -217,7 +217,7 @@ void TMR1_IRQHandler(void)  //1s
 		CounterLed = 0;
 	}
 	CounterDelay++;
-	if(CounterDelay == 100)
+	if(CounterDelay == 10)
 	{
 		CounterDelay = 0;
 	}
@@ -735,7 +735,7 @@ void UART_SendMiYao()
 		
 		CaptureOilValue();
 		UART_SendMiYaoData();
-		while(CounterDelay == 100);
+		//while(CounterDelay != 1);
 		WDT_RESET_COUNTER();//Î¹¹·
 	}
 
@@ -813,6 +813,7 @@ void UART_SendMiYaoData()
 	#endif
 
 	SendToComm((char *)SendBuffer);
+	while(CounterDelay != 1);
 	
 
 
@@ -888,10 +889,7 @@ void UART_SendData()
 	#endif
 
 	SendToComm((char *)SendBuffer);
-	
-
-
-	//GprsSendComm(char *comm);	
+	//while(CounterDelay != 10);
 }
 
 

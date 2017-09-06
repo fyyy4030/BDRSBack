@@ -700,7 +700,7 @@ Image Symbol Table
     i.UART_Open                              0x0000140c   Section        0  uart.o(i.UART_Open)
     i.UART_SendData                          0x000014c4   Section        0  main.o(i.UART_SendData)
     i.UART_SendMiYao                         0x00001580   Section        0  main.o(i.UART_SendMiYao)
-    i.UART_SendMiYaoData                     0x00001624   Section        0  main.o(i.UART_SendMiYaoData)
+    i.UART_SendMiYaoData                     0x00001618   Section        0  main.o(i.UART_SendMiYaoData)
     i.UART_TEST_HANDLE                       0x000016c0   Section        0  main.o(i.UART_TEST_HANDLE)
     i.WDT_IRQHandler                         0x000017ac   Section        0  main.o(i.WDT_IRQHandler)
     i.WDT_Open                               0x000017dc   Section        0  wdt.o(i.WDT_Open)
@@ -911,8 +911,8 @@ Image Symbol Table
     UART_EnableInt                           0x000013e5   Thumb Code    34  uart.o(i.UART_EnableInt)
     UART_Open                                0x0000140d   Thumb Code   166  uart.o(i.UART_Open)
     UART_SendData                            0x000014c5   Thumb Code   162  main.o(i.UART_SendData)
-    UART_SendMiYao                           0x00001581   Thumb Code   132  main.o(i.UART_SendMiYao)
-    UART_SendMiYaoData                       0x00001625   Thumb Code   142  main.o(i.UART_SendMiYaoData)
+    UART_SendMiYao                           0x00001581   Thumb Code   122  main.o(i.UART_SendMiYao)
+    UART_SendMiYaoData                       0x00001619   Thumb Code   152  main.o(i.UART_SendMiYaoData)
     UART_TEST_HANDLE                         0x000016c1   Thumb Code   200  main.o(i.UART_TEST_HANDLE)
     WDT_IRQHandler                           0x000017ad   Thumb Code    38  main.o(i.WDT_IRQHandler)
     WDT_Open                                 0x000017dd   Thumb Code    24  wdt.o(i.WDT_Open)
@@ -1077,8 +1077,8 @@ Memory Map of the image
     0x000013e4   0x00000028   Code   RO          557    i.UART_EnableInt    uart.o
     0x0000140c   0x000000b8   Code   RO          558    i.UART_Open         uart.o
     0x000014c4   0x000000bc   Code   RO          969    i.UART_SendData     main.o
-    0x00001580   0x000000a4   Code   RO          970    i.UART_SendMiYao    main.o
-    0x00001624   0x0000009c   Code   RO          971    i.UART_SendMiYaoData  main.o
+    0x00001580   0x00000098   Code   RO          970    i.UART_SendMiYao    main.o
+    0x00001618   0x000000a8   Code   RO          971    i.UART_SendMiYaoData  main.o
     0x000016c0   0x000000ec   Code   RO          972    i.UART_TEST_HANDLE  main.o
     0x000017ac   0x00000030   Code   RO          973    i.WDT_IRQHandler    main.o
     0x000017dc   0x0000001c   Code   RO          669    i.WDT_Open          wdt.o
@@ -1200,8 +1200,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6416        896        376       1104       2888     167888   Grand Totals
-      6416        896        376       1104       2888     167888   ELF Image Totals
+      6416        896        376       1104       2888     167884   Grand Totals
+      6416        896        376       1104       2888     167884   ELF Image Totals
       6416        896        376       1104          0          0   ROM Totals
 
 ==============================================================================
