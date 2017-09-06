@@ -381,19 +381,19 @@ void CaptureOilValue()
 		#if 1
 		if((i32ConversionData>143)&&(i32ConversionData<162))// 148 ~ 157
 		{
-			youliang = 0x0A; //0 格
+			youliang = 0x12; //8 格
 		}
 		else if((i32ConversionData>350)&&(i32ConversionData<370))//355 ~ 365
 		{
-			youliang = 0x0B; //1 格
+			youliang = 0x11; //7 格
 		}
 		else if((i32ConversionData>579)&&(i32ConversionData<597))//584 ~ 592
 		{
-			youliang = 0x0C; //2 格
+			youliang = 0x10; //6 格
 		}
 		else if((i32ConversionData>785)&&(i32ConversionData<806))//790 ~ 801
 		{
-			youliang = 0x0D; //3 格
+			youliang = 0x0F; //5 格
 		}
 		else if((i32ConversionData>999)&&(i32ConversionData<1020))// 1004 ~ 1015
 		{
@@ -401,19 +401,19 @@ void CaptureOilValue()
 		}
 		else if((i32ConversionData>1190)&&(i32ConversionData<1211))//1195 ~ 1206
 		{
-			youliang = 0x0F; //5 格
+			youliang = 0x0D; //3 格
 		}
 		else if((i32ConversionData>1404)&&(i32ConversionData<1423))// 1409 ~ 1418
 		{
-			youliang = 0x10; //6 格
+			youliang = 0x0C; //2 格
 		}
 		else if((i32ConversionData>1625)&&(i32ConversionData<1637))//1620 ~ 1632
 		{
-			youliang = 0x11; //7 格
+			youliang = 0x0B; //1 格
 		}
 		else if((i32ConversionData>1760)&&(i32ConversionData<1777))//1765 ~ 1772
 		{
-			youliang = 0x12; //8 格
+			youliang = 0x0A; //0 格
 		}
 
 		printf("Conversion result of channel 2: 0x%X (%d)\n\n", youliang, youliang-10);

@@ -1868,7 +1868,7 @@
         0x00000d6a:    dd05        ..      BLE      0xd78 ; CaptureOilValue + 104
         0x00000d6c:    2ca2        .,      CMP      r4,#0xa2
         0x00000d6e:    da03        ..      BGE      0xd78 ; CaptureOilValue + 104
-        0x00000d70:    200a        .       MOVS     r0,#0xa
+        0x00000d70:    2012        .       MOVS     r0,#0x12
         0x00000d72:    4936        6I      LDR      r1,[pc,#216] ; [0xe4c] = 0x20000448
         0x00000d74:    7008        .p      STRB     r0,[r1,#0]
         0x00000d76:    e05a        Z.      B        0xe2e ; CaptureOilValue + 286
@@ -1880,7 +1880,7 @@
         0x00000d82:    3073        s0      ADDS     r0,r0,#0x73
         0x00000d84:    4284        .B      CMP      r4,r0
         0x00000d86:    da03        ..      BGE      0xd90 ; CaptureOilValue + 128
-        0x00000d88:    200b        .       MOVS     r0,#0xb
+        0x00000d88:    2011        .       MOVS     r0,#0x11
         0x00000d8a:    4930        0I      LDR      r1,[pc,#192] ; [0xe4c] = 0x20000448
         0x00000d8c:    7008        .p      STRB     r0,[r1,#0]
         0x00000d8e:    e04e        N.      B        0xe2e ; CaptureOilValue + 286
@@ -1891,7 +1891,7 @@
         0x00000d98:    3012        .0      ADDS     r0,r0,#0x12
         0x00000d9a:    4284        .B      CMP      r4,r0
         0x00000d9c:    da03        ..      BGE      0xda6 ; CaptureOilValue + 150
-        0x00000d9e:    200c        .       MOVS     r0,#0xc
+        0x00000d9e:    2010        .       MOVS     r0,#0x10
         0x00000da0:    492a        *I      LDR      r1,[pc,#168] ; [0xe4c] = 0x20000448
         0x00000da2:    7008        .p      STRB     r0,[r1,#0]
         0x00000da4:    e043        C.      B        0xe2e ; CaptureOilValue + 286
@@ -1903,7 +1903,7 @@
         0x00000db0:    30e3        .0      ADDS     r0,r0,#0xe3
         0x00000db2:    4284        .B      CMP      r4,r0
         0x00000db4:    da03        ..      BGE      0xdbe ; CaptureOilValue + 174
-        0x00000db6:    200d        .       MOVS     r0,#0xd
+        0x00000db6:    200f        .       MOVS     r0,#0xf
         0x00000db8:    4924        $I      LDR      r1,[pc,#144] ; [0xe4c] = 0x20000448
         0x00000dba:    7008        .p      STRB     r0,[r1,#0]
         0x00000dbc:    e037        7.      B        0xe2e ; CaptureOilValue + 286
@@ -1926,7 +1926,7 @@
         0x00000dde:    30d4        .0      ADDS     r0,r0,#0xd4
         0x00000de0:    4284        .B      CMP      r4,r0
         0x00000de2:    da03        ..      BGE      0xdec ; CaptureOilValue + 220
-        0x00000de4:    200f        .       MOVS     r0,#0xf
+        0x00000de4:    200d        .       MOVS     r0,#0xd
         0x00000de6:    4919        .I      LDR      r1,[pc,#100] ; [0xe4c] = 0x20000448
         0x00000de8:    7008        .p      STRB     r0,[r1,#0]
         0x00000dea:    e020         .      B        0xe2e ; CaptureOilValue + 286
@@ -1937,7 +1937,7 @@
         0x00000df4:    3013        .0      ADDS     r0,r0,#0x13
         0x00000df6:    4284        .B      CMP      r4,r0
         0x00000df8:    da03        ..      BGE      0xe02 ; CaptureOilValue + 242
-        0x00000dfa:    2010        .       MOVS     r0,#0x10
+        0x00000dfa:    200c        .       MOVS     r0,#0xc
         0x00000dfc:    4913        .I      LDR      r1,[pc,#76] ; [0xe4c] = 0x20000448
         0x00000dfe:    7008        .p      STRB     r0,[r1,#0]
         0x00000e00:    e015        ..      B        0xe2e ; CaptureOilValue + 286
@@ -1949,7 +1949,7 @@
         0x00000e0c:    30e9        .0      ADDS     r0,r0,#0xe9
         0x00000e0e:    4284        .B      CMP      r4,r0
         0x00000e10:    da03        ..      BGE      0xe1a ; CaptureOilValue + 266
-        0x00000e12:    2011        .       MOVS     r0,#0x11
+        0x00000e12:    200b        .       MOVS     r0,#0xb
         0x00000e14:    490d        .I      LDR      r1,[pc,#52] ; [0xe4c] = 0x20000448
         0x00000e16:    7008        .p      STRB     r0,[r1,#0]
         0x00000e18:    e009        ..      B        0xe2e ; CaptureOilValue + 286
@@ -1960,7 +1960,7 @@
         0x00000e22:    480e        .H      LDR      r0,[pc,#56] ; [0xe5c] = 0x6f1
         0x00000e24:    4284        .B      CMP      r4,r0
         0x00000e26:    da02        ..      BGE      0xe2e ; CaptureOilValue + 286
-        0x00000e28:    2012        .       MOVS     r0,#0x12
+        0x00000e28:    200a        .       MOVS     r0,#0xa
         0x00000e2a:    4908        .I      LDR      r1,[pc,#32] ; [0xe4c] = 0x20000448
         0x00000e2c:    7008        .p      STRB     r0,[r1,#0]
         0x00000e2e:    4807        .H      LDR      r0,[pc,#28] ; [0xe4c] = 0x20000448
