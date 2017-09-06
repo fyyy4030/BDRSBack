@@ -31,11 +31,13 @@ unsigned short  int MiYaoZuoBiaoY;
 
 
 unsigned char youliang;
+unsigned int TempSendOil = 0;
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
 uint8_t g_u8RecData[RXBUFSIZE]  = {0};
+//uint8_t tempReceiveData[RXBUFSIZE] = {0};
 
 volatile uint32_t g_u32comRbytes = 0;
 volatile uint32_t g_u32comRhead  = 0;
@@ -51,6 +53,7 @@ int CounterDelay = 0;
 uint32_t counter = 0;
 uint8_t TestBuffer[1024] ={0x32,0x33,0x34,0x35};
 uint8_t i;
+uint8_t k=0;
 unsigned char SendBuffer[256] ={0};
  
 volatile uint32_t g_u32AdcIntFlag;
@@ -69,6 +72,8 @@ void SendData(uint8_t *BufferSend,uint8_t len);
 void  SendToComm(char *comm);
 static void _PutChar_f(uint8_t ucCh);
 static void sysPrintf(char *pcStr);
+void ReceiveData (void);
+
 
 void SYS_Init(void)
 {
@@ -175,7 +180,7 @@ void WDT_IRQHandler(void)
 
         g_u8IsWDTTimeoutINT = 1;
 
-        printf("WDT time-out interrupt occurred.\n");
+        //printf("WDT time-out interrupt occurred.\n");
     }
 }
 
@@ -368,9 +373,53 @@ void CaptureOilValue()
 
             /* Get the conversion result of the ADC channel 2 */
             i32ConversionData = ADC_GET_CONVERSION_DATA(ADC, 4);
-            printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
+            //printf("Conversion result of channel 2: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
 
-		//	while(CounterDelay != 10);		
+		
+		// 应用
+		//
+		#if 1
+		if((i32ConversionData>143)&&(i32ConversionData<162))// 148 ~ 157
+		{
+			youliang = 0x0A; //0 格
+		}
+		else if((i32ConversionData>350)&&(i32ConversionData<370))//355 ~ 365
+		{
+			youliang = 0x0B; //1 格
+		}
+		else if((i32ConversionData>579)&&(i32ConversionData<597))//584 ~ 592
+		{
+			youliang = 0x0C; //2 格
+		}
+		else if((i32ConversionData>785)&&(i32ConversionData<806))//790 ~ 801
+		{
+			youliang = 0x0D; //3 格
+		}
+		else if((i32ConversionData>999)&&(i32ConversionData<1020))// 1004 ~ 1015
+		{
+			youliang = 0x0E; //4 格
+		}
+		else if((i32ConversionData>1190)&&(i32ConversionData<1211))//1195 ~ 1206
+		{
+			youliang = 0x0F; //5 格
+		}
+		else if((i32ConversionData>1404)&&(i32ConversionData<1423))// 1409 ~ 1418
+		{
+			youliang = 0x10; //6 格
+		}
+		else if((i32ConversionData>1625)&&(i32ConversionData<1637))//1620 ~ 1632
+		{
+			youliang = 0x11; //7 格
+		}
+		else if((i32ConversionData>1760)&&(i32ConversionData<1777))//1765 ~ 1772
+		{
+			youliang = 0x12; //8 格
+		}
+
+		printf("Conversion result of channel 2: 0x%X (%d)\n\n", youliang, youliang-10);
+
+		#endif
+		
 }                                                                                         
 /*---------------------------------------------------------------------------------------------------------*/
 
@@ -437,11 +486,11 @@ void  SendToComm(char *comm)
 void GetSrand(unsigned int seeder,unsigned char TempArray[])
 {
 	 srand(seeder);
-	for(i = 0; i < 2; i++)
+	for(i = 0; i < seeder; i++)
 	{	 
 		
 		TempArray[i]=rand()%200;
-		printf("temparray[%d]  = %d\t",i,TempArray[i]);
+		//printf("temparray[%d]  = %d\t",i,TempArray[i]);
 	}
 }
 /*---------------------------------------------------------------------------------------------------------*/
@@ -476,7 +525,7 @@ void UART_TEST_HANDLE()
 
             if(u8InChar == '0')
             {
-                g_bWait = FALSE;
+                //g_bWait = FALSE;
             }
 
             /* Check if buffer full */
@@ -487,9 +536,14 @@ void UART_TEST_HANDLE()
                 g_u32comRtail = (g_u32comRtail == (RXBUFSIZE - 1)) ? 0 : (g_u32comRtail + 1);
                 g_u32comRbytes++;
             }
+
+					
         }
-        printf("\nTransmission Test:");
+        //printf("\nTransmission Test:");
+	
+		
     }
+
 
   #if 0
     if(u32IntSts & UART_ISR_THRE_INT_Msk)
@@ -507,7 +561,14 @@ void UART_TEST_HANDLE()
     }
  #endif
 
+//	 if(g_u8RecData[2] == '3')
+//	 {
+//	 	 printf("\r\nHello world!!!!\r\n");
+//	 }
+ 
+   
 
+#if 1
     if(u32IntSts & UART_ISR_THRE_INT_Msk)
     {
 		   	if (_sys_uUartTxHead == _sys_uUartTxTail) 
@@ -527,6 +588,10 @@ void UART_TEST_HANDLE()
 				}
 			}
     }
+#endif
+		ReceiveData();
+
+
 
 }
 
@@ -659,9 +724,15 @@ void UART_SendMiYao()
     NVIC_EnableIRQ(UART0_IRQn);
 	while((g_bWait)&&(g_u8IsWDTTimeoutINT == 0))
 	{
-		GetSrand(2,JiaMiCoordinate);
-		MiYaoZuoBiaoX = JiaMiCoordinate[0];
-		MiYaoZuoBiaoY = JiaMiCoordinate[1];
+		GetSrand(4,JiaMiCoordinate);
+		MiYaoZuoBiaoX = JiaMiCoordinate[0]<<8;
+		MiYaoZuoBiaoX |= JiaMiCoordinate[1];
+		//MiYaoZuoBiaoX *= 327;
+
+		MiYaoZuoBiaoY = JiaMiCoordinate[2]<<8;
+		MiYaoZuoBiaoY |= JiaMiCoordinate[3];
+		//MiYaoZuoBiaoY *= 176;
+		
 		CaptureOilValue();
 		UART_SendMiYaoData();
 		while(CounterDelay == 100);
@@ -672,7 +743,9 @@ void UART_SendMiYao()
     //UART_DISABLE_INT(UART0, (UART_IER_RDA_IEN_Msk | UART_IER_THRE_IEN_Msk | UART_IER_RTO_IEN_Msk));
     //NVIC_DisableIRQ(UART0_IRQn);
     g_bWait = TRUE;
-    printf("\nUART Sample Demo End.\n");
+    //printf("\nUART Sample Demo End.\n");
+
+	//SendToComm((char *)tempReceiveData);
 
 }
 
@@ -712,6 +785,7 @@ void UART_SendMiYaoData()
 }
 #endif
 
+#if 1
 void UART_SendMiYaoData()
 {
 	SendBuffer[0] = 0xfe;
@@ -719,11 +793,11 @@ void UART_SendMiYaoData()
 
 	SendBuffer[2]  = 0x90;//(JiaMiCoordinate[2]&0x7f)
 
-	SendBuffer[3] = ((MiYaoZuoBiaoX>>8)&0xff);
-	SendBuffer[4] = (MiYaoZuoBiaoX&0xff);
+	SendBuffer[3] = (((MiYaoZuoBiaoX*327)>>8)&0xff);
+	SendBuffer[4] = ((MiYaoZuoBiaoX*327)&0xff);
 
-	SendBuffer[5] = (MiYaoZuoBiaoY&0xff);
-	SendBuffer[6] = ((MiYaoZuoBiaoY>>8)&0xff);
+	SendBuffer[5] = ((MiYaoZuoBiaoY*176)&0xff);
+	SendBuffer[6] = (((MiYaoZuoBiaoY*176)>>8)&0xff);
 
 
 	SendBuffer[7] = 0xdf;//(0xff&(youliang>>16));
@@ -744,6 +818,7 @@ void UART_SendMiYaoData()
 
 	//GprsSendComm(char *comm);	
 }
+#endif
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  UART Function UART_SendData()                                                                              */
@@ -795,9 +870,13 @@ void UART_SendData()
 	SendBuffer[5] = (MiYaoZuoBiaoY&0xff);
 	SendBuffer[6] = ((MiYaoZuoBiaoY>>8)&0xff);
 
-	SendBuffer[7] = (0xff&(youliang>>16));
-	SendBuffer[8] = (0xff&(youliang>>8));
-	SendBuffer[9] = (0xff&youliang);
+ 	TempSendOil = youliang;
+	TempSendOil = ((TempSendOil + 13)*85324 - 44);
+	TempSendOil &= 0xFFFFFF;
+
+	SendBuffer[7] = (0xff&(TempSendOil>>16));
+	SendBuffer[8] = (0xff&(TempSendOil>>8));
+	SendBuffer[9] = (0xff&TempSendOil);
 
 	SendBuffer[10] = (SendBuffer[2]^SendBuffer[3]^SendBuffer[4]^SendBuffer[5]^SendBuffer[6]^SendBuffer[7]^SendBuffer[8]^SendBuffer[9]);
    
@@ -815,6 +894,55 @@ void UART_SendData()
 	//GprsSendComm(char *comm);	
 }
 
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* UART Receive Data                                                                                       */
+/* Function: receive data from uart0                                                                       */
+/* Function name: void ReceiveData (void)                                                                  */
+/*---------------------------------------------------------------------------------------------------------*/
+void ReceiveData (void)
+{
+	  #if 1
+	    //receive
+			
+		if(((g_u8RecData[2]^g_u8RecData[3]^g_u8RecData[4]^g_u8RecData[5]^g_u8RecData[6]^g_u8RecData[7]^g_u8RecData[8]^g_u8RecData[9]) == g_u8RecData[10])&&(g_u8RecData[10] != 0x00))
+		{
+			printf("\n*** Receive  R... RECEIVE DAtA ***\n");
+			//if((MIYAO[MiYaoZuoBiaoX] == g_u8RecData[6]))// &&(MIYAO[MiYaoZuoBiaoY] == g_u8RecData[7])
+			{
+					
+					//memcpy(tempReceiveData,g_u8RecData,1024);	
+					g_bWait = FALSE;
+				
+
+//					for(k=0;k<9;k++)
+//					{
+//						SendToComm((char *)g_u8RecData[k]);
+//						//printf("\n*** 123546546546546  w...666 RECEIVE DAtA ***\n");
+//					}
+			}
+		
+		}
+		else
+		{
+			WDT_CLEAR_TIMEOUT_INT_FLAG();
+			//g_u8IsWDTTimeoutINT = 0;	
+		}
+		//else
+		//{
+		//	memset(g_u8RecData,0,1024);
+		//}
+		#endif
+
+#if 0
+	 if((g_u8RecData[2] == 0x90)&&(g_u8RecData[6] == 0x88))
+	 {
+	 	 printf("\r\nHello world!!!!\r\n");
+		 g_bWait = FALSE;
+	 }
+#endif
+		
+}
 
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -851,14 +979,8 @@ int main(void)
     if(WDT_GET_RESET_FLAG() == 1)
     {
         /* Use P0.0 to check time-out period time */
-//        GPIO_SetMode(P0, 0, GPIO_PMD_OUTPUT);
-//        P00 = 1;
-//        P00 = 0;
-//
-//		P42 = 0;
-
         WDT_CLEAR_RESET_FLAG();
-        printf("\n*** WDT time-out reset occurred ***\n");
+        //printf("\n*** WDT time-out reset occurred ***\n");
         //while(1);
     }
 
@@ -871,18 +993,14 @@ int main(void)
 
     /* Enable WDT NVIC */
     NVIC_EnableIRQ(WDT_IRQn);
-/*--------------------------------------------------------------------------------------------------------------*/
-
-
-
+	/*---------------------------------------------------------------------------------------------------------*/
 
     /*---------------------------------------------------------------------------------------------------------*/
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    printf("\n\nCPU @ %dHz\n", SystemCoreClock);
-
-    printf("\n\nUART Sample Program\n");
+    //printf("\n\nCPU @ %dHz\n", SystemCoreClock);
+    //printf("\n\nUART Sample Program\n");
 
     /* UART sample function */
     //UART_FunctionTest();
@@ -890,8 +1008,8 @@ int main(void)
     //while(1)
 	while(g_u8IsWDTTimeoutINT == 0)
 	{
-	 	printf("\r\nwushengjun wubinghan\n");
-		//UART_SendData();
+	 	//printf("\r\nwushengjun wubinghan\n");
+		UART_SendData();
 		WDT_RESET_COUNTER();//喂狗
 	}
 #endif
@@ -905,8 +1023,11 @@ int main(void)
 
     /* Single Mode test */
     //AdcSingleModeTest();
-	CaptureOilValue();
-    /* Disable ADC module */
+	while (1)
+	{
+		CaptureOilValue();
+    }
+	/* Disable ADC module */
     ADC_Close(ADC);
 
     /* Disable ADC IP clock */
