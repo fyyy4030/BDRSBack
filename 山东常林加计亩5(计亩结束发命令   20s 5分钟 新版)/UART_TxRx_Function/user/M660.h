@@ -15,7 +15,7 @@
 //#define ID 		"20000000001"
 //#define ID 		"10000000006"
 //  #define ID 		"00160516003"
-	#define ID 		"00170816001"
+	#define ID 		"00170816003"
 
 //IP:122.0.75.201,8880   ;171.8.225.246,8002   106.3.44.168:8880
 
@@ -29,7 +29,7 @@
 
 //wushengjun add 2017.7.27
 //const char *at_command[18]={"at\r","at+csq\r","AT+CPIN?\r","AT+CMGF=0\r","AT+CIMI\r","at+csq\r","at+creg=2\r","at+creg?\r", "AT+CGATT=1\r",  "AT+CGATT?\r",  "AT+CIPSHUT\r", "at+cipmux?\r","at+cipmux=1\r","AT+CSTT=\"CMNET\"\r",  "AT+CIICR\r",  "AT+CIFSR\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0," };
-const char *at_command[10]={"at\r","AT+CIPSHUT\r","at+cipmux=1\r","at+creg?\r","AT+CSTT=\"CMNET\"\r","AT+CIICR\r","AT+CIFSR\r","AT+CCID\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8880\r","AT+CIPSEND=0," };
+const char *at_command[10]={"at\r","AT+CIPSHUT\r","at+cipmux=1\r","at+creg?\r","AT+CSTT=\"CMNET\"\r","AT+CIICR\r","AT+CIFSR\r","AT+CCID\r","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0," };
 
 //const char *at_command[9]={"at\r","at+ccid\r","AT+CIPMUX=1\r" "at+csq\r","at+creg?\r","AT+CSTT=CMNET","AT+CIPSTART=0,\"TCP\",\"171.8.225.246\",8003\r","AT+CIPSEND=0,\r"}; //,"at+cgdcont=1,\"IP\",\"cmnet\"\r", "AT+CIICR\r", 
 const char *at_command_reply[11]={"at\r\r\nOK\r\n","OK","OK\r\n","+CREG: 0,1\r\n\r\nOK\r\n","OK","OK","\r\n","OK","CONNECT OK",">","SEND OK" };
@@ -1672,7 +1672,7 @@ UINT8 AlarmBDRSSend(struct CarData NewCarData)
           Gprs_Timeout_Count = 0;
 
 		  //FlagBaoJing = 0;
-		  GprsSendComm("wsjok!\r");
+		  //GprsSendComm("wsjok!\r");
 
           return 4;
        }   

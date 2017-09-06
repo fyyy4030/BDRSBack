@@ -20,7 +20,7 @@
 ### ADS-LD Output File: '.\obj\UART_TxRxFunction.axf'
 ### ADS-LD Command File: '.\obj\UART_TxRxFunction.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile '.\obj\UART_TxRxFunction.lnp', Handle=0x000006CC
+### Creating CmdFile '.\obj\UART_TxRxFunction.lnp', Handle=0x000005F4
 ### Writing '.lnp' file
 ### ADS-LD Command file '.\obj\UART_TxRxFunction.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

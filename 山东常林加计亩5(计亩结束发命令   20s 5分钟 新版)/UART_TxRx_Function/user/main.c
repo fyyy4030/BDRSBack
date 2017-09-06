@@ -901,15 +901,26 @@ void BatteryChargeMangment()
 			PB2=1;	
 		}
 	}
+	/*
 	else if((volt_bat>37)&&(voltage < 50))//在单独接锂电池的时候也能正常工作，此时can已经停止工作。
 	{
 			tongxintime=0;
-	}	
+	}
+	*/	
 }
 
 
 /*---------------------------------------------------------------------------------------------------------*/
-
+//2017.8.18 wushengjun
+//Function: 低功耗，休眠（BDRS,GPS,CAN） 条件：当没有外部电源且备用电池电压在3.7V以上
+//Function Name: void dormant_exe(void)
+void dormant_exe(void)
+{
+	if((volt_bat>37)&&(voltage < 50))//在单独接锂电池的时候也能正常工作，此时can已经停止工作。
+	{
+		
+	}
+}
 
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -1022,7 +1033,7 @@ int main(void)
 	  //按协议格式初始化各个数据 熄火命令灯  只有用字符串格式串口才可发送数据 因要检测字符串结束符'/0'
     memset((char *)(&NewCarData) , 0 , sizeof(NewCarData));
     memcpy((char *)(&(CarDataP->Head)), "Z;",2+1);
-    memcpy((char *)(&(CarDataP->SimID)), "ID00170816001;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
+    memcpy((char *)(&(CarDataP->SimID)), "ID00170816003;",13+1+1);  //18203623263//10000000001 // 10000000002 //10000000003 //10000000004
  	 #ifdef CCIDASSIM
 	  memcpy((char *)(&(CarDataP->SimID))+2, &CCID[8],11); 
 	  #endif
@@ -1410,10 +1421,12 @@ int main(void)
 
 						#endif
 
+							/*
 							if((volt_bat>37)&&(voltage < 50))//在单独接锂电池的时候也能正常工作，此时can已经停止工作。
 							{
 									tongxintime=0;
 							}
+							*/
 		   
 						   #if 1
 						   if((lsnum<3)&&(FlagBaoJing == 1))

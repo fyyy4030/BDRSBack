@@ -273,8 +273,25 @@ uint16_t SOS_Interval = 0;
 //#define  BUZZEROFF     (PF5 = 1);
 //#define	 GPRSPOWEROFF  (PC10 = 1);
 //#define	 GPRSPOWERON   (PC10 = 0);
-#define	  GPRS_POWERROFF     (PC10 = 1)
-#define	  GPRS_POWERRON		   (PC10 = 0)
+
+
+
+
+
+
+
+
+
+//#define	  GPRS_POWERROFF     (PC10 = 1)
+//#define	  GPRS_POWERRON		   (PC10 = 0)
+
+#define	  GPRS_POWERROFF     (PB3 = 1)
+#define	  GPRS_POWERRON		   (PB3 = 0)
+
+
+#define	  GPS_POWERROFF     (PA10 = 1)
+#define	  GPS_POWERRON		   (PA10 = 0)
+
 uint16_t  delay_ns = 0;
 
 
