@@ -47,6 +47,7 @@ volatile int32_t g_bWait         = TRUE;
 volatile uint8_t g_u8IsWDTTimeoutINT = 0;
 
 
+
 //wsj add 2017.8.24
 int CounterLed = 0;
 int CounterDelay = 0;
@@ -217,7 +218,7 @@ void TMR1_IRQHandler(void)  //1s
 		CounterLed = 0;
 	}
 	CounterDelay++;
-	if(CounterDelay == 10)
+	if(CounterDelay == 100)
 	{
 		CounterDelay = 0;
 	}
@@ -415,9 +416,16 @@ void CaptureOilValue()
 		{
 			youliang = 0x0A; //0 ¸ñ
 		}
+		else if((i32ConversionData>1740)&&(i32ConversionData<1760))//1745 ~ 1758
+		{	
+			youliang = 0x0A; //0 ¸ñ
+		}
 
-		printf("Conversion result of channel 2: 0x%X (%d)\n\n", youliang, youliang-10);
 
+		//printf("Conversion result of channel 2: 0x%X (%d)\n\n", youliang, youliang-10);
+		//printf("ADC..............: 0x%X (%d)\n\n", i32ConversionData, i32ConversionData);
+
+		//youliang += 10;
 		#endif
 		
 }                                                                                         
@@ -733,7 +741,7 @@ void UART_SendMiYao()
 		MiYaoZuoBiaoY |= JiaMiCoordinate[3];
 		//MiYaoZuoBiaoY *= 176;
 		
-		CaptureOilValue();
+		//CaptureOilValue();
 		UART_SendMiYaoData();
 		//while(CounterDelay != 1);
 		WDT_RESET_COUNTER();//Î¹¹·
@@ -813,7 +821,7 @@ void UART_SendMiYaoData()
 	#endif
 
 	SendToComm((char *)SendBuffer);
-	while(CounterDelay != 1);
+	//while(CounterDelay != 1);
 	
 
 
@@ -860,6 +868,8 @@ void UART_SendData()
 
 void UART_SendData()
 {
+
+	CaptureOilValue();
 	SendBuffer[0] = 0xfe;
 	SendBuffer[1] = 0xfd;
 
@@ -873,7 +883,9 @@ void UART_SendData()
 
  	TempSendOil = youliang;
 	TempSendOil = ((TempSendOil + 13)*85324 - 44);
+	//TempSendOil = ((TempSendOil + 13)*85324 - 34);
 	TempSendOil &= 0xFFFFFF;
+	//TempSendOil += 0x0A;
 
 	SendBuffer[7] = (0xff&(TempSendOil>>16));
 	SendBuffer[8] = (0xff&(TempSendOil>>8));
@@ -889,7 +901,7 @@ void UART_SendData()
 	#endif
 
 	SendToComm((char *)SendBuffer);
-	//while(CounterDelay != 10);
+	//while(CounterDelay != 100);
 }
 
 
@@ -903,9 +915,9 @@ void ReceiveData (void)
 	  #if 1
 	    //receive
 			
-		if(((g_u8RecData[2]^g_u8RecData[3]^g_u8RecData[4]^g_u8RecData[5]^g_u8RecData[6]^g_u8RecData[7]^g_u8RecData[8]^g_u8RecData[9]) == g_u8RecData[10])&&(g_u8RecData[10] != 0x00))
+		if(((g_u8RecData[2]^g_u8RecData[3]^g_u8RecData[4]^g_u8RecData[5]^g_u8RecData[6]^g_u8RecData[7]) == g_u8RecData[8])&&(g_u8RecData[8] != 0x00))
 		{
-			printf("\n*** Receive  R... RECEIVE DAtA ***\n");
+			//printf("\n*** Receive  R... RECEIVE DAtA ***\n");
 			//if((MIYAO[MiYaoZuoBiaoX] == g_u8RecData[6]))// &&(MIYAO[MiYaoZuoBiaoY] == g_u8RecData[7])
 			{
 					

@@ -59,6 +59,22 @@ unsigned char SendBuffer[256] ={0};
 volatile uint32_t g_u32AdcIntFlag;
 
 
+/**********************************************************************************************************/
+//receive data
+//
+
+#define RX_ARRAY_NUM 100
+ uint8_t uart_rx[RX_ARRAY_NUM] = {0};
+ uint8_t uart_rx2[RX_ARRAY_NUM] = {0};
+ uint32_t volatile rx_cnt = 0;
+ uint32_t volatile rx_cnt2 = 0;
+
+ uint32_t  u32Count;
+ volatile uint16_t bufloc = 0;
+  volatile char strbuf[300];
+/**********************************************************************************************************/
+
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define functions prototype                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -73,7 +89,7 @@ void  SendToComm(char *comm);
 static void _PutChar_f(uint8_t ucCh);
 static void sysPrintf(char *pcStr);
 void ReceiveData (void);
-
+void uartpfnCallback(uint8_t* u8Buf,uint32_t u32Len);
 
 void SYS_Init(void)
 {
@@ -480,6 +496,26 @@ void  SendToComm(char *comm)
 }
 
 
+
+
+void uartpfnCallback(uint8_t* u8Buf,uint32_t u32Len)
+{
+     uint8_t  j;  
+      if(bufloc >= 300) 
+	  {
+	  	memset((void *)strbuf,0,300);
+		bufloc =0;
+	  }   
+    for(j = 0;j<u32Len;j++)
+    {    
+       *(strbuf+bufloc)  = *(u8Buf+j);
+      // *(u8Buf+j) = 0;  
+        bufloc++;
+    }  
+    
+}
+
+
 /*---------------------------------------------------------------------------------------------------------*/
 //Function:
 //
@@ -511,6 +547,7 @@ void UART_TEST_HANDLE()
     uint8_t u8InChar = 0xFF;
     uint32_t u32IntSts = UART0->ISR;
 
+#if 0
     if(u32IntSts & UART_ISR_RDA_INT_Msk)
     {
         //printf("\nInput:");
@@ -539,10 +576,28 @@ void UART_TEST_HANDLE()
 
 					
         }
-        //printf("\nTransmission Test:");
-	
-		
+        //printf("\nTransmission Test:");		
     }
+#endif
+
+
+	   //u32IntSts = 	UART0->ISR;
+   if(u32IntSts & UART_ISR_RDA_INT_Msk)		 //UART_FSR_RX_POINTER_Msk	UART0 GPRS½ÓÊÕÖÐ¶Ï
+   {	 //(PF5 = 0);
+       
+       u32Count = ((UART0->FSR & UART_FSR_RX_POINTER_Msk)>>UART_FSR_RX_POINTER_Pos);  
+	   	for(i=0;i<u32Count;i++)		
+		{	
+			if ( rx_cnt == RX_ARRAY_NUM ) 
+			{
+				rx_cnt = 0;
+			}			
+			u8InChar = uart_rx[rx_cnt] = UART_READ(UART0);			
+			rx_cnt++;					
+		}
+		uartpfnCallback(&(uart_rx[0]), u32Count);
+		rx_cnt = 0;	
+   }
 
 
   #if 0
@@ -900,7 +955,7 @@ void UART_SendData()
 /*---------------------------------------------------------------------------------------------------------*/
 void ReceiveData (void)
 {
-	  #if 1
+	  #if 0
 	    //receive
 			
 		if(((g_u8RecData[2]^g_u8RecData[3]^g_u8RecData[4]^g_u8RecData[5]^g_u8RecData[6]^g_u8RecData[7]^g_u8RecData[8]^g_u8RecData[9]) == g_u8RecData[10])&&(g_u8RecData[10] != 0x00))
@@ -939,6 +994,11 @@ void ReceiveData (void)
 		 g_bWait = FALSE;
 	 }
 #endif
+	if((strbuf[2]==0x90)&&(strbuf[6] == 0x88))
+	{
+		 printf("\r\nHello world!!!!\r\n");
+		 g_bWait = FALSE;
+	}
 		
 }
 
@@ -997,12 +1057,14 @@ int main(void)
     /* SAMPLE CODE                                                                                             */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    //printf("\n\nCPU @ %dHz\n", SystemCoreClock);
-    //printf("\n\nUART Sample Program\n");
+    printf("\n\nCPU @ %dHz\n", SystemCoreClock);
+    printf("\n\nUART Sample Program\n");
 
     /* UART sample function */
-    //UART_FunctionTest();
-	UART_SendMiYao(); 
+    UART_FunctionTest();
+	//UART_SendMiYao();
+
+	ReceiveData(); 
     //while(1)
 	while(g_u8IsWDTTimeoutINT == 0)
 	{
