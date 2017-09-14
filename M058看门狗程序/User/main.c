@@ -908,7 +908,7 @@ int main(void)
 
     /* Enable WDT time-out reset function and select time-out interval to 2^14 * WDT clock then start WDT counting */
     g_u8IsWDTTimeoutINT = 0;
-    WDT_Open(WDT_TIMEOUT_2POW14, WDT_RESET_DELAY_1026CLK, TRUE, FALSE);
+    WDT_Open(WDT_TIMEOUT_2POW16, WDT_RESET_DELAY_130CLK, TRUE, FALSE);
 
     /* Enable WDT interrupt function */
     WDT_EnableInt();
@@ -923,7 +923,7 @@ int main(void)
 		    P00 = 1;
 			P42 = 1;
 			printf("\n*** howell wdg ***\n");
-			WDT_RESET_COUNTER();
+			//WDT_RESET_COUNTER();
 			
 	   }
 	   //WDT_RESET_COUNTER();

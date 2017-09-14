@@ -1,0 +1,2 @@
+Dependencies for Project 'YongMengOilSenser', Target 'Target 1': (DO NOT MODIFY !)
+F (.\startup_M051Series.s)(0x56AB2116)(--cpu Cortex-M0 -g --apcs=interwork -I "d:\Keil\ARM\INC" -I "d:\Keil\ARM\INC\Nuvoton" --list "startup_M051Series.lst" --xref -o "startup_M051Series.o" --depend "startup_M051Series.d")
