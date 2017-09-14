@@ -218,7 +218,7 @@ void TMR1_IRQHandler(void)  //1s
 		CounterLed = 0;
 	}
 	CounterDelay++;
-	if(CounterDelay == 100)
+	if(CounterDelay == 40)
 	{
 		CounterDelay = 0;
 	}
@@ -996,7 +996,8 @@ int main(void)
 
 	SYS_UnlockReg();
     g_u8IsWDTTimeoutINT = 0;
-    WDT_Open(WDT_TIMEOUT_2POW14, WDT_RESET_DELAY_1026CLK, TRUE, FALSE);
+    //WDT_Open(WDT_TIMEOUT_2POW14, WDT_RESET_DELAY_1026CLK, TRUE, FALSE);
+	WDT_Open(WDT_TIMEOUT_2POW16, WDT_RESET_DELAY_130CLK, TRUE, FALSE);
 
     /* Enable WDT interrupt function */
     WDT_EnableInt();
@@ -1019,8 +1020,12 @@ int main(void)
 	while(g_u8IsWDTTimeoutINT == 0)
 	{
 	 	//printf("\r\nwushengjun wubinghan\n");
-		UART_SendData();
-		WDT_RESET_COUNTER();//Î¹¹·
+		if(CounterDelay == 38)
+		{
+			UART_SendData();
+			WDT_RESET_COUNTER();//Î¹¹·	
+		}
+
 	}
 #endif
 
